@@ -1,20 +1,25 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "baseUrl": ".",
+    "types": ["vite/client"],
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "noImplicitAny": false,
-    "types": ["node"]
+    "skipLibCheck": true
   },
   "include": [
     ".storybook/**/*.ts",
     ".storybook/**/*.d.ts",
     "stories/**/*.ts",
-    "src/component/jetpack-ui/**/*.ts",
-    "../../../../../../../src/Administration/Resources/app/administration/src/html-shim.d.ts",
-    "../../../../../../../src/Administration/Resources/app/administration/node_modules/vite/client.d.ts"
+    "src/component/jetpack-ui/**/*.ts"
   ],
-  "exclude": ["node_modules", "storybook-static", "src/**/*.spec.ts"],
-  "files": []
+  "exclude": ["node_modules", "storybook-static", "src/**/*.spec.ts"]
 }

@@ -26,6 +26,8 @@
   the stable `sw-page` host boundary remains.
 - Add a standalone Vue 3 Storybook component viewer with interactive stories for the complete
   `jetpack-*` catalog, deterministic DAL fixtures, generated docs, and a static documentation build.
+- Decouple the Storybook typecheck and Vite/esbuild build from Shopware's Administration
+  `tsconfig.json`, allowing documentation CI to build from a standalone Frosh Jetpack checkout.
 - Add a boot-order-safe global Administration CRUD API with typed DAL listings, detail/create forms,
   lifecycle hooks, association selectors, and immutable registration snapshots.
 - Add deterministic cross-plugin CRUD extensions for columns, cards, fields, row actions, bulk

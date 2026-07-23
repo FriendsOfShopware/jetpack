@@ -20,6 +20,7 @@ navigation and overlays, and data and media.
 ## Build static documentation
 
 ```bash
+npm run storybook:typecheck
 npm run storybook:build
 ```
 
@@ -29,6 +30,11 @@ Zensical guides and live component catalog are published together on GitHub Page
 generated Storybook files in the Shopware plugin package.
 
 ## How the standalone environment works
+
+Storybook owns a self-contained TypeScript configuration and local declarations for its Twig imports
+and limited Shopware facade. Vite receives an explicit raw esbuild configuration, so neither the
+typecheck nor the production build resolves the Shopware Administration `tsconfig.json`. The viewer
+can therefore be built from a standalone Frosh Jetpack checkout in documentation CI.
 
 The Storybook bootstrap provides only the Shopware boundaries that the components intentionally use:
 
