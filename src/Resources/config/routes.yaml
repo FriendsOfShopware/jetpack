@@ -1,0 +1,3 @@
+frosh_jetpack_api:
+    resource: '../../Api/'
+    type: attribute

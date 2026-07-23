@@ -1,0 +1,25 @@
+{% block jetpack_entity_select %}
+<jetpack-search-select
+    v-bind="$attrs"
+    :model-value="modelValue"
+    :options="entityOptions"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :placeholder="placeholder"
+    :empty-text="loading ? loadingText : emptyText"
+    :disabled="disabled || loading"
+    :required="required"
+    @update:model-value="$emit('update:modelValue', $event)"
+    @change="$emit('change', $event)"
+    @search="search"
+>
+    <template
+        v-for="(_, name) in $slots"
+        #[name]="slotData"
+    ><slot
+        :name="name"
+        v-bind="slotData || {}"
+    ></slot></template>
+</jetpack-search-select>
+{% endblock %}

@@ -1,0 +1,112 @@
+.jetpack-search-select {
+    position: relative;
+}
+
+.jetpack-search-select__trigger {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: var(--jetpack-control-height);
+    padding: 6px 12px;
+    color: var(--jetpack-color-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    background: var(--jetpack-color-surface);
+    border: 1px solid var(--jetpack-color-border);
+    border-radius: var(--jetpack-radius-control);
+
+    &:focus-visible {
+        border-color: var(--jetpack-color-primary);
+        box-shadow: var(--jetpack-focus-ring);
+        outline: 0;
+    }
+}
+
+.jetpack-search-select__placeholder,
+.jetpack-search-select__empty {
+    color: var(--jetpack-color-text-muted);
+}
+
+.jetpack-search-select__selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.jetpack-search-select__token {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    padding: 2px 6px;
+    background: var(--jetpack-color-surface-subtle);
+    border-radius: 4px;
+}
+
+.jetpack-search-select__token-remove {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.jetpack-search-select__popover {
+    position: absolute;
+    z-index: 1000;
+    top: calc(100% + 4px);
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    background: var(--jetpack-color-surface);
+    border: 1px solid var(--jetpack-color-border);
+    border-radius: var(--jetpack-radius-control);
+    box-shadow: var(--jetpack-shadow-popover);
+}
+
+.jetpack-search-select__search {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--jetpack-color-border);
+}
+
+.jetpack-search-select__search-input {
+    width: 100%;
+    font: inherit;
+    border: 0;
+    outline: 0;
+}
+
+.jetpack-search-select__options {
+    max-height: 240px;
+    padding: 4px;
+    margin: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.jetpack-search-select__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px;
+    color: var(--jetpack-color-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: 4px;
+
+    &:hover,
+    &[aria-selected="true"] {
+        background: var(--jetpack-color-surface-subtle);
+    }
+}
+
+.jetpack-search-select__empty {
+    padding: 12px;
+    text-align: center;
+}

@@ -1,0 +1,43 @@
+.jetpack-chart {
+    margin: 0;
+    color: var(--jetpack-color-text);
+}
+
+.jetpack-chart__title {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.jetpack-chart__canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.jetpack-chart__axis {
+    stroke: var(--jetpack-color-border);
+    stroke-width: 1;
+}
+
+.jetpack-chart__bar {
+    fill: var(--jetpack-color-primary);
+}
+
+.jetpack-chart__line {
+    stroke: var(--jetpack-color-primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.jetpack-chart__point {
+    fill: var(--jetpack-color-surface);
+    stroke: var(--jetpack-color-primary);
+    stroke-width: 3;
+}
+
+.jetpack-chart__label {
+    fill: var(--jetpack-color-text-secondary);
+    font-size: 11px;
+}

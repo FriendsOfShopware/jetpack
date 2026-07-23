@@ -1,0 +1,13 @@
+version: 1
+tabs:
+  general:
+    label: { en-GB: General }
+    sections:
+      behavior:
+        label: { en-GB: Behavior }
+        fields:
+          retries:
+            type: int
+            default: 11
+            max: 10
+            label: { en-GB: Retries }

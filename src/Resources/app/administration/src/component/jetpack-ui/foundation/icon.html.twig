@@ -1,0 +1,25 @@
+{% block jetpack_icon %}
+<svg
+    class="jetpack-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    :width="resolvedSize"
+    :height="resolvedSize"
+    :aria-hidden="decorative ? 'true' : undefined"
+    :aria-label="decorative ? undefined : label"
+    :role="decorative ? undefined : 'img'"
+    v-bind="$attrs"
+>
+    <path
+        v-for="path in paths"
+        :key="path.d"
+        :d="path.d"
+        :fill="path.fill ? 'currentColor' : 'none'"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    />
+</svg>
+{% endblock %}

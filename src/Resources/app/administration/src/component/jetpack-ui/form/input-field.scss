@@ -1,0 +1,52 @@
+.jetpack-input-field__control {
+    display: flex;
+    align-items: center;
+    min-height: var(--jetpack-control-height);
+    overflow: hidden;
+    background: var(--jetpack-color-surface);
+    border: 1px solid var(--jetpack-color-border);
+    border-radius: var(--jetpack-radius-control);
+    transition:
+        border-color var(--jetpack-transition-fast),
+        box-shadow var(--jetpack-transition-fast);
+
+    &:focus-within {
+        border-color: var(--jetpack-color-primary);
+        box-shadow: var(--jetpack-focus-ring);
+    }
+
+    .jetpack-field-shell--error & {
+        border-color: var(--jetpack-color-critical);
+    }
+}
+
+.jetpack-input-field__input {
+    width: 100%;
+    min-width: 0;
+    height: calc(var(--jetpack-control-height) - 2px);
+    padding: 0 var(--jetpack-space-3, 12px);
+    color: var(--jetpack-color-text);
+    font: inherit;
+    background: transparent;
+    border: 0;
+    outline: 0;
+
+    &::placeholder {
+        color: var(--jetpack-color-text-muted);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.jetpack-input-field__password-toggle {
+    display: grid;
+    align-self: stretch;
+    place-items: center;
+    padding: 0 12px;
+    color: var(--jetpack-color-text-muted);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}

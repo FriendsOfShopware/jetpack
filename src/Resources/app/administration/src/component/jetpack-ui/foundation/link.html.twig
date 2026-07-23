@@ -1,0 +1,17 @@
+{% block jetpack_link %}
+<component
+    :is="componentTag"
+    class="jetpack-link"
+    :class="{ 'jetpack-link--disabled': disabled }"
+    :href="href"
+    :to="to"
+    :target="target"
+    :rel="target === '_blank' ? 'noopener noreferrer' : undefined"
+    :aria-disabled="disabled ? 'true' : undefined"
+    :tabindex="disabled ? -1 : undefined"
+    v-bind="$attrs"
+    @click="onClick"
+>
+    <slot></slot>
+</component>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% block jetpack_native_picker %}
+<jetpack-field-shell
+    :id="id"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :required="required"
+    :disabled="disabled"
+>
+    <template #control="{ controlId, describedBy }">
+        <div
+            class="jetpack-native-picker"
+            :class="`jetpack-native-picker--${pickerType}`"
+        >
+            <input
+                :id="controlId"
+                v-bind="$attrs"
+                class="jetpack-native-picker__control"
+                :type="pickerType"
+                :value="modelValue"
+                :disabled="disabled"
+                :required="required"
+                :min="min"
+                :max="max"
+                :aria-describedby="describedBy"
+                :aria-invalid="Boolean(error) || undefined"
+                @input="onInput"
+                @change="$emit('change', $event.target.value)"
+            >
+            <span
+                v-if="pickerType === 'color'"
+                class="jetpack-native-picker__color-value"
+            >{{ modelValue }}</span>
+        </div>
+    </template>
+</jetpack-field-shell>
+{% endblock %}

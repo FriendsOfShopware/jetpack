@@ -1,0 +1,52 @@
+{% block jetpack_button %}
+<component
+    :is="componentTag"
+    class="jetpack-button"
+    :class="[
+        `jetpack-button--${variant}`,
+        `jetpack-button--${size}`,
+        {
+            'jetpack-button--block': block,
+            'jetpack-button--square': square,
+            'jetpack-button--loading': loading,
+        },
+    ]"
+    :type="nativeType"
+    :disabled="componentTag === 'button' ? isUnavailable : undefined"
+    :aria-disabled="componentTag !== 'button' && isUnavailable ? 'true' : undefined"
+    :aria-busy="loading ? 'true' : undefined"
+    :tabindex="componentTag !== 'button' && isUnavailable ? -1 : undefined"
+    :href="href"
+    :to="to"
+    :target="target"
+    :rel="target === '_blank' ? 'noopener noreferrer' : undefined"
+    v-bind="$attrs"
+    @click="onClick"
+>
+    {% block jetpack_button_content %}
+    <span
+        v-if="loading"
+        class="jetpack-button__loader"
+        aria-hidden="true"
+    ></span>
+    <span
+        class="jetpack-button__content"
+        :class="{ 'jetpack-button__content--hidden': loading }"
+    >
+        <span
+            v-if="$slots['icon-front']"
+            class="jetpack-button__icon"
+        >
+            <slot name="icon-front"></slot>
+        </span>
+        <slot></slot>
+        <span
+            v-if="$slots['icon-back']"
+            class="jetpack-button__icon"
+        >
+            <slot name="icon-back"></slot>
+        </span>
+    </span>
+    {% endblock %}
+</component>
+{% endblock %}

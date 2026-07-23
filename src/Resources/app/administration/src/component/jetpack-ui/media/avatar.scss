@@ -1,0 +1,29 @@
+.jetpack-avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    color: var(--jetpack-color-primary);
+    font-weight: 700;
+    background: var(--jetpack-color-brand-soft);
+    border-radius: 50%;
+}
+
+.jetpack-avatar--small {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+}
+
+.jetpack-avatar--large {
+    width: 64px;
+    height: 64px;
+    font-size: 20px;
+}
+
+.jetpack-avatar__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

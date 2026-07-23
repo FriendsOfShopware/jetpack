@@ -1,0 +1,57 @@
+{% block jetpack_field_shell %}
+<div
+    class="jetpack-field-shell"
+    :class="{
+        'jetpack-field-shell--disabled': disabled,
+        'jetpack-field-shell--error': Boolean(error),
+    }"
+>
+    {% block jetpack_field_shell_label %}
+    <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -->
+    <label
+        v-if="label || $slots.label"
+        class="jetpack-field-shell__label"
+        :for="controlId"
+    >
+        <slot name="label">{{ label }}</slot>
+        <span
+            v-if="required"
+            class="jetpack-field-shell__required"
+            aria-hidden="true"
+        >*</span>
+    </label>
+    {% endblock %}
+
+    {% block jetpack_field_shell_control %}
+    <slot
+        name="control"
+        :control-id="controlId"
+        :described-by="describedBy"
+    ></slot>
+    {% endblock %}
+
+    {% block jetpack_field_shell_meta %}
+    <div
+        v-if="helpText || error || $slots.hint"
+        class="jetpack-field-shell__meta"
+    >
+        <p
+            v-if="helpText"
+            :id="helpId"
+            class="jetpack-field-shell__help"
+        >
+            {{ helpText }}
+        </p>
+        <p
+            v-if="error"
+            :id="errorId"
+            class="jetpack-field-shell__error"
+            role="alert"
+        >
+            {{ error }}
+        </p>
+        <slot name="hint"></slot>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

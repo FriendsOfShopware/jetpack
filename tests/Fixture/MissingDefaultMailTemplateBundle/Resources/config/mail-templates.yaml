@@ -1,0 +1,9 @@
+version: 1
+default-locale: en-GB
+templates:
+  acme_missing_default:
+    available-entities: {}
+    translations:
+      de-DE:
+        name: Fehlender Standard
+        subject: Fehlender Standard

@@ -1,0 +1,22 @@
+.jetpack-link {
+    color: var(--jetpack-color-brand);
+    font-size: inherit;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.jetpack-link:hover:not(.jetpack-link--disabled) {
+    color: var(--jetpack-color-brand-hover);
+    text-decoration: underline;
+}
+
+.jetpack-link:focus-visible {
+    border-radius: 2px;
+    outline: none;
+    box-shadow: var(--jetpack-focus-ring);
+}
+
+.jetpack-link--disabled {
+    color: var(--jetpack-color-text-disabled);
+    cursor: not-allowed;
+}

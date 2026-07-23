@@ -1,0 +1,33 @@
+.jetpack-popover {
+    position: relative;
+    display: inline-flex;
+}
+
+.jetpack-popover__trigger {
+    display: inline-flex;
+}
+
+.jetpack-popover__panel {
+    position: absolute;
+    z-index: 1050;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 220px;
+    padding: 8px;
+    color: var(--jetpack-color-text);
+    background: var(--jetpack-color-surface);
+    border: 1px solid var(--jetpack-color-border-soft);
+    border-radius: var(--jetpack-radius);
+    box-shadow: var(--jetpack-shadow-popover);
+}
+
+.jetpack-popover__panel--start {
+    right: auto;
+    left: 0;
+}
+
+.jetpack-popover__panel--center {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+}

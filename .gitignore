@@ -1,0 +1,6 @@
+/.phpstan-cache/
+/.phpunit.cache/
+/site/
+/vendor/
+/src/Resources/app/administration/node_modules/
+/src/Resources/app/administration/storybook-static/

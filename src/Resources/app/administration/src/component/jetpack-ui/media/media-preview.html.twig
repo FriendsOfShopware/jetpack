@@ -1,0 +1,43 @@
+{% block jetpack_media_preview %}
+<figure
+    v-bind="$attrs"
+    class="jetpack-media-preview"
+>
+    <img
+        v-if="mediaType === 'image'"
+        class="jetpack-media-preview__asset"
+        :src="src"
+        :alt="alt || fileName"
+    >
+    <video
+        v-else-if="mediaType === 'video'"
+        class="jetpack-media-preview__asset"
+        :src="src"
+        :aria-label="alt || fileName"
+        controls
+    ></video>
+    <div
+        v-else
+        class="jetpack-media-preview__file"
+    >
+        <jetpack-icon
+            name="download"
+            :size="32"
+        />
+        <span>{{ fileName || 'Media file' }}</span>
+    </div>
+    <figcaption
+        v-if="caption || $slots.caption"
+        class="jetpack-media-preview__caption"
+    ><slot name="caption">
+        {{ caption }}
+    </slot></figcaption>
+    <button
+        v-if="removable"
+        class="jetpack-media-preview__remove"
+        type="button"
+        aria-label="Remove media"
+        @click="$emit('remove')"
+    ><jetpack-icon name="close" /></button>
+</figure>
+{% endblock %}

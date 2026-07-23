@@ -1,0 +1,50 @@
+{% block jetpack_input_field %}
+<jetpack-field-shell
+    :id="id"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :required="required"
+    :disabled="disabled"
+>
+    <template #control="{ controlId, describedBy }">
+        <div class="jetpack-input-field__control">
+            <slot name="prefix"></slot>
+            <input
+                :id="controlId"
+                v-bind="$attrs"
+                class="jetpack-input-field__input"
+                :type="resolvedType"
+                :value="modelValue"
+                :placeholder="placeholder"
+                :disabled="disabled"
+                :readonly="readonly"
+                :required="required"
+                :min="min"
+                :max="max"
+                :step="step"
+                :aria-describedby="describedBy"
+                :aria-invalid="Boolean(error) || undefined"
+                @input="onInput"
+                @change="$emit('change', normalizedValue($event))"
+                @blur="$emit('blur', $event)"
+                @focus="$emit('focus', $event)"
+            >
+            <button
+                v-if="resolvedType === 'password'"
+                class="jetpack-input-field__password-toggle"
+                type="button"
+                :aria-label="passwordVisible ? 'Hide password' : 'Show password'"
+                @click="passwordVisible = !passwordVisible"
+            >
+                <jetpack-icon :name="passwordVisible ? 'eye-off' : 'eye'" />
+            </button>
+            <slot name="suffix"></slot>
+        </div>
+    </template>
+    <template
+        v-if="$slots.hint"
+        #hint
+    ><slot name="hint"></slot></template>
+</jetpack-field-shell>
+{% endblock %}

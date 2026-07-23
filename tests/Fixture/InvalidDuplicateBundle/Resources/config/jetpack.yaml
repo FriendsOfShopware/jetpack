@@ -1,0 +1,19 @@
+version: 1
+tabs:
+  general:
+    label: { en-GB: General }
+    sections:
+      first:
+        label: { en-GB: First }
+        fields:
+          duplicate:
+            type: bool
+            default: true
+            label: { en-GB: First duplicate }
+      second:
+        label: { en-GB: Second }
+        fields:
+          duplicate:
+            type: bool
+            default: false
+            label: { en-GB: Second duplicate }

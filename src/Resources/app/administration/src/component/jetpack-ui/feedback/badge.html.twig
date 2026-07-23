@@ -1,0 +1,7 @@
+{% block jetpack_badge %}
+<span
+    v-bind="$attrs"
+    class="jetpack-badge"
+    :class="[`jetpack-badge--${variant}`, `jetpack-badge--${size}`]"
+><slot></slot></span>
+{% endblock %}

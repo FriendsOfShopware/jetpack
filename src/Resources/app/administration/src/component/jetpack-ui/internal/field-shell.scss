@@ -1,0 +1,38 @@
+.jetpack-field-shell {
+    display: grid;
+    gap: 6px;
+    width: 100%;
+    color: var(--jetpack-color-text);
+    font-size: var(--jetpack-font-size);
+}
+
+.jetpack-field-shell__label {
+    display: inline-flex;
+    gap: 3px;
+    align-items: center;
+    width: fit-content;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.jetpack-field-shell__required,
+.jetpack-field-shell__error {
+    color: var(--jetpack-color-critical);
+}
+
+.jetpack-field-shell__meta,
+.jetpack-field-shell__help,
+.jetpack-field-shell__error {
+    margin: 0;
+    min-width: 0;
+    font-size: var(--jetpack-font-size-small);
+    line-height: 1.4;
+}
+
+.jetpack-field-shell__help {
+    color: var(--jetpack-color-text-secondary);
+}
+
+.jetpack-field-shell--disabled .jetpack-field-shell__label {
+    color: var(--jetpack-color-text-disabled);
+}

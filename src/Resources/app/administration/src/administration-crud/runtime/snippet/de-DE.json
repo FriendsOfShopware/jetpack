@@ -1,0 +1,50 @@
+{
+    "frosh-jetpack-crud": {
+        "general": {
+            "title": "Frosh Jetpack CRUD",
+            "description": "Deklarative Verwaltung von Administration-Entitäten"
+        },
+        "actions": {
+            "cancel": "Abbrechen",
+            "confirm": "Bestätigen",
+            "delete": "Löschen",
+            "retry": "Erneut versuchen"
+        },
+        "list": {
+            "empty": "Keine Einträge gefunden"
+        },
+        "detail": {
+            "loading": "Eintrag wird geladen"
+        },
+        "delete": {
+            "title": "Eintrag löschen",
+            "message": "Soll dieser Eintrag wirklich gelöscht werden?"
+        },
+        "association": {
+            "empty": "Keine passenden Einträge gefunden",
+            "loading": "Einträge werden geladen…",
+            "search": "Einträge durchsuchen…"
+        },
+        "translation": {
+            "language": "Sprache"
+        },
+        "bulk": {
+            "selected": "{count} ausgewählt",
+            "delete": "Ausgewählte löschen",
+            "deleteTitle": "Ausgewählte Einträge löschen",
+            "deleteMessage": "Sollen die {count} ausgewählten Einträge wirklich gelöscht werden?",
+            "confirmTitle": "Mehrfachaktion ausführen",
+            "confirmMessage": "Diese Aktion für {count} ausgewählte Einträge ausführen?"
+        },
+        "values": {
+            "yes": "Ja",
+            "no": "Nein"
+        },
+        "errors": {
+            "load": "Die Daten konnten nicht geladen werden.",
+            "save": "Der Eintrag konnte nicht gespeichert werden.",
+            "delete": "Der Eintrag konnte nicht gelöscht werden.",
+            "action": "Die Aktion konnte nicht abgeschlossen werden."
+        }
+    }
+}

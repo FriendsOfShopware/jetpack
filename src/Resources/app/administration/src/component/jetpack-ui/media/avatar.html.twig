@@ -1,0 +1,22 @@
+{% block jetpack_avatar %}
+<span
+    v-bind="$attrs"
+    class="jetpack-avatar"
+    :class="`jetpack-avatar--${size}`"
+    :aria-label="label || name || 'Avatar'"
+    role="img"
+>
+    <img
+        v-if="src && !imageFailed"
+        class="jetpack-avatar__image"
+        :src="src"
+        :alt="label || name"
+        @error="imageFailed = true"
+    >
+    <span
+        v-else
+        class="jetpack-avatar__initials"
+        aria-hidden="true"
+    >{{ initials }}</span>
+</span>
+{% endblock %}

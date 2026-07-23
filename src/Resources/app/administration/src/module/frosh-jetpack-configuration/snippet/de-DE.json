@@ -1,0 +1,25 @@
+{
+    "frosh-jetpack-configuration": {
+        "general": {
+            "title": "Erweiterungskonfiguration",
+            "description": "Mit Frosh Jetpack bereitgestellte Erweiterungen konfigurieren"
+        },
+        "list": {
+            "empty": "Keine aktive Erweiterung stellt eine Jetpack-Konfiguration bereit.",
+            "open": "Konfigurieren"
+        },
+        "detail": {
+            "salesChannel": "Verkaufskanal",
+            "language": "Sprache",
+            "global": "Global",
+            "languageIndependent": "Sprachunabhängig",
+            "override": "In diesem Bereich überschreiben",
+            "inherited": "Geerbt von {source}",
+            "defaultSource": "YAML-Standardwert",
+            "globalSource": "globaler Konfiguration",
+            "saveSuccess": "Konfiguration gespeichert.",
+            "saveError": "Die Konfiguration konnte nicht gespeichert werden.",
+            "loadError": "Die Konfiguration konnte nicht geladen werden."
+        }
+    }
+}

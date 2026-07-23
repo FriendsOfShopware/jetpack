@@ -1,0 +1,43 @@
+{% block jetpack_modal %}
+<teleport to="body">
+    <div
+        v-if="modelValue"
+        class="jetpack-modal"
+        role="presentation"
+        @mousedown.self="onBackdrop"
+    >
+        <section
+            ref="dialog"
+            v-bind="$attrs"
+            class="jetpack-modal__dialog"
+            :class="`jetpack-modal__dialog--${size}`"
+            role="dialog"
+            aria-modal="true"
+            :aria-labelledby="titleId"
+            tabindex="-1"
+        >
+            <header class="jetpack-modal__header">
+                <slot name="header">
+                    <h2
+                        :id="titleId"
+                        class="jetpack-modal__title"
+                    >{{ title }}</h2>
+                </slot>
+                <button
+                    class="jetpack-modal__close"
+                    type="button"
+                    aria-label="Close dialog"
+                    @click="close"
+                ><jetpack-icon name="close" /></button>
+            </header>
+            <div class="jetpack-modal__content">
+                <slot></slot>
+            </div>
+            <footer
+                v-if="$slots.footer"
+                class="jetpack-modal__footer"
+            ><slot name="footer"></slot></footer>
+        </section>
+    </div>
+</teleport>
+{% endblock %}

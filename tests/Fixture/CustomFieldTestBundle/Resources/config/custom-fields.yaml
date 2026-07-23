@@ -1,0 +1,36 @@
+version: 1
+sets:
+  acme_product_details:
+    label:
+      en-GB: Product details
+      de-DE: Produktdetails
+    position: 10
+    relations: [product]
+    fields:
+      acme_badge:
+        type: single-select
+        label:
+          en-GB: Badge
+        helpText:
+          en-GB: Badge shown near the product name
+        options:
+          new:
+            label:
+              en-GB: New
+          sale:
+            label:
+              en-GB: Sale
+      acme_score:
+        type: int
+        label:
+          en-GB: Score
+        min: 0
+        max: 100
+        step: 5
+        includeInSearch: true
+      acme_manufacturer:
+        type: single-entity-select
+        label:
+          en-GB: Manufacturer
+        entity: product_manufacturer
+        labelProperty: name

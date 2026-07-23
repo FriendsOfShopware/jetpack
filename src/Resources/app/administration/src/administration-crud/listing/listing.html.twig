@@ -1,0 +1,240 @@
+{% block frosh_jetpack_crud_list %}
+<sw-page class="frosh-jetpack-crud-list">
+    <template #smart-bar-header>
+        <h2>
+            {{ $t(definition.module.titleSnippet) }}
+            <span class="sw-page__smart-bar-amount">({{ total }})</span>
+        </h2>
+    </template>
+
+    <template
+        v-if="translationEnabled"
+        #language-switch
+    >
+        <jetpack-entity-select
+            class="frosh-jetpack-crud-list__language"
+            entity="language"
+            :model-value="languageId"
+            :label-property="definition.translation.languageLabelProperty || 'name'"
+            :context="apiContext"
+            :placeholder="$t('frosh-jetpack-crud.translation.language')"
+            @update:model-value="changeLanguage"
+            @load-error="onLoadError"
+        />
+    </template>
+
+    <template #smart-bar-actions>
+        <jetpack-button
+            v-if="definition.routeNames.create"
+            variant="primary"
+            :disabled="!canCreate"
+            @click="openCreate"
+        >{{ $t(`${definition.snippets}.list.actions.create`) }}</jetpack-button>
+    </template>
+
+    <template #content>
+        <div class="frosh-jetpack-crud-list__content">
+            <jetpack-card v-if="listing.search">
+                <div class="frosh-jetpack-crud-list__search">
+                    <jetpack-text-field
+                        :model-value="term"
+                        :label="$t(`${definition.snippets}.list.search.label`)"
+                        :placeholder="$t(`${definition.snippets}.list.search.placeholder`)"
+                        @update:model-value="term = String($event)"
+                        @keydown.enter="reload"
+                    />
+                    <jetpack-button
+                        @click="reload"
+                    >
+                        {{ $t(`${definition.snippets}.list.search.submit`) }}
+                    </jetpack-button>
+                </div>
+            </jetpack-card>
+
+            <jetpack-banner
+                v-if="loadError"
+                variant="critical"
+                :message="$t('frosh-jetpack-crud.errors.load')"
+            >
+                <template #actions>
+                    <jetpack-button
+                        size="small"
+                        @click="reload"
+                    >
+                        {{ $t('frosh-jetpack-crud.actions.retry') }}
+                    </jetpack-button>
+                </template>
+            </jetpack-banner>
+
+            <jetpack-banner
+                v-if="rowActionError || bulkError"
+                variant="critical"
+                dismissible
+                :message="$t('frosh-jetpack-crud.errors.action')"
+                @dismiss="rowActionError = false; bulkError = false"
+            />
+
+            <jetpack-card
+                v-if="selectable && selectedIds.length > 0"
+                compact
+            >
+                <div class="frosh-jetpack-crud-list__bulk-actions">
+                    <span>{{ $t('frosh-jetpack-crud.bulk.selected', { count: selectedIds.length }) }}</span>
+                    <jetpack-button
+                        v-if="bulkDeleteEnabled"
+                        size="small"
+                        variant="critical"
+                        :disabled="!canDelete || bulkBusy"
+                        @click="askBulkDelete"
+                    >{{ $t('frosh-jetpack-crud.bulk.delete') }}</jetpack-button>
+                    <jetpack-button
+                        v-for="action in bulkActions"
+                        :key="action.id"
+                        size="small"
+                        :variant="action.variant || 'secondary'"
+                        :disabled="!canRunAction(action) || bulkBusy"
+                        :loading="bulkBusy && pendingBulkAction && pendingBulkAction.id === action.id"
+                        @click="askBulkAction(action)"
+                    >{{ $t(action.labelSnippet) }}</jetpack-button>
+                </div>
+            </jetpack-card>
+
+            <jetpack-card compact>
+                <jetpack-entity-table
+                    ref="table"
+                    :entity="definition.entity"
+                    :columns="columns"
+                    :criteria="criteria"
+                    :context="apiContext"
+                    :limit="listing.pageSize || 25"
+                    :model-value="selectedIds"
+                    :selectable="selectable"
+                    :empty-text="$t('frosh-jetpack-crud.list.empty')"
+                    @update:model-value="selectedIds = $event.map(String)"
+                    @load="onLoad"
+                    @load-error="onLoadError"
+                    @row-click="openDetail"
+                >
+                    <template
+                        v-for="column in columns"
+                        #[`column-${column.property}`]="{ item, value }"
+                    >
+                        <component
+                            :is="column.component"
+                            v-if="column.type === 'custom'"
+                            :key="`${column.id}-custom`"
+                            :item="item"
+                            :value="value"
+                            :column="column"
+                            v-bind="column.props || {}"
+                        />
+                        <jetpack-badge
+                            v-else-if="column.type === 'badge'"
+                            :key="`${column.id}-badge`"
+                            :variant="badgeVariant(column, value)"
+                        >
+                            {{ badgeLabel(column, value) }}
+                        </jetpack-badge>
+                        <jetpack-link
+                            v-else-if="column.linkToDetail && definition.routeNames.detail"
+                            :key="`${column.id}-link`"
+                            :to="{ name: definition.routeNames.detail, params: { id: item.id } }"
+                            @click.stop
+                        >
+                            {{ formatColumnValue(column, value) }}
+                        </jetpack-link>
+                        <span
+                            v-else
+                            :key="`${column.id}-value`"
+                        >
+                            {{ formatColumnValue(column, value) }}
+                        </span>
+                    </template>
+                    <template #actions="{ item }">
+                        <div class="frosh-jetpack-crud-list__row-actions">
+                            <jetpack-button
+                                v-if="definition.routeNames.detail"
+                                size="small"
+                                :disabled="!canEdit"
+                                @click.stop="openDetail(item)"
+                            >{{ $t(`${definition.snippets}.list.actions.edit`) }}</jetpack-button>
+                            <jetpack-button
+                                v-if="listing.allowDelete !== false"
+                                size="small"
+                                variant="critical"
+                                :disabled="!canDelete"
+                                @click.stop="askDelete(item)"
+                            >{{ $t(`${definition.snippets}.list.actions.delete`) }}</jetpack-button>
+                            <jetpack-button
+                                v-for="action in listing.rowActions || []"
+                                :key="action.id"
+                                size="small"
+                                :variant="action.variant || 'secondary'"
+                                :disabled="!canRunAction(action) || Boolean(runningRowAction)"
+                                :loading="runningRowAction === `${action.id}:${item.id}`"
+                                @click.stop="runRowAction(action, item)"
+                            >{{ $t(action.labelSnippet) }}</jetpack-button>
+                        </div>
+                    </template>
+                </jetpack-entity-table>
+            </jetpack-card>
+        </div>
+
+        <jetpack-modal
+            :model-value="Boolean(pendingDelete)"
+            :title="$t('frosh-jetpack-crud.delete.title')"
+            size="small"
+            :close-on-backdrop="!deleting"
+            :close-on-escape="!deleting"
+            @update:model-value="!$event && closeDelete()"
+        >
+            <jetpack-banner
+                v-if="deleteError"
+                variant="critical"
+                :message="$t('frosh-jetpack-crud.errors.delete')"
+            />
+            <p>{{ $t('frosh-jetpack-crud.delete.message') }}</p>
+            <template #footer>
+                <jetpack-button
+                    :disabled="deleting"
+                    @click="closeDelete"
+                >
+                    {{ $t('frosh-jetpack-crud.actions.cancel') }}
+                </jetpack-button>
+                <jetpack-button
+                    variant="critical"
+                    :loading="deleting"
+                    @click="confirmDelete"
+                >{{ $t('frosh-jetpack-crud.actions.delete') }}</jetpack-button>
+            </template>
+        </jetpack-modal>
+
+        <jetpack-modal
+            :model-value="Boolean(pendingBulkAction)"
+            :title="bulkTitle()"
+            size="small"
+            :close-on-backdrop="!bulkBusy"
+            :close-on-escape="!bulkBusy"
+            @update:model-value="!$event && closeBulkAction()"
+        >
+            <jetpack-banner
+                v-if="bulkError"
+                variant="critical"
+                :message="$t('frosh-jetpack-crud.errors.action')"
+            />
+            <p>{{ bulkMessage() }}</p>
+            <template #footer>
+                <jetpack-button
+                    :disabled="bulkBusy"
+                    @click="closeBulkAction"
+                >{{ $t('frosh-jetpack-crud.actions.cancel') }}</jetpack-button>
+                <jetpack-button
+                    :variant="pendingBulkAction === 'delete' ? 'critical' : (pendingBulkAction.variant || 'primary')"
+                    :loading="bulkBusy"
+                    @click="confirmBulkAction"
+                >{{ $t(pendingBulkAction === 'delete' ? 'frosh-jetpack-crud.actions.delete' : 'frosh-jetpack-crud.actions.confirm') }}</jetpack-button>
+            </template>
+        </jetpack-modal>
+    </template>
+</sw-page>
+{% endblock %}

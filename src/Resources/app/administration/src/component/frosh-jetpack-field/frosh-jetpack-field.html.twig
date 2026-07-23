@@ -1,0 +1,80 @@
+{% block frosh_jetpack_field %}
+<div class="frosh-jetpack-field">
+    <jetpack-switch
+        v-if="typedField.type === 'bool'"
+        :model-value="modelValue"
+        :label="label"
+        :help-text="helpText"
+        :disabled="disabled"
+        @update:model-value="updateValue"
+    />
+
+    <jetpack-number-field
+        v-else-if="typedField.type === 'int' || typedField.type === 'float'"
+        :model-value="modelValue"
+        :label="label"
+        :help-text="helpText"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :min="typedField.min"
+        :max="typedField.max"
+        :step="typedField.type === 'int' ? 1 : undefined"
+        @update:model-value="updateValue"
+    />
+
+    <jetpack-textarea
+        v-else-if="typedField.type === 'textarea'"
+        :model-value="modelValue"
+        :label="label"
+        :help-text="helpText"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :required="typedField.required"
+        @update:model-value="updateValue"
+    />
+
+    <jetpack-password-field
+        v-else-if="typedField.type === 'password'"
+        :model-value="modelValue"
+        :label="label"
+        :help-text="helpText"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :required="typedField.required"
+        @update:model-value="updateValue"
+    />
+
+    <jetpack-select
+        v-else-if="typedField.type === 'single-select'"
+        :model-value="modelValue"
+        :label="label"
+        :help-text="helpText"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :options="options"
+        @update:model-value="updateValue"
+    />
+
+    <jetpack-multi-select
+        v-else-if="typedField.type === 'multi-select'"
+        :model-value="modelValue"
+        :label="label"
+        :help-text="helpText"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :options="options"
+        @update:model-value="updateValue"
+    />
+
+    <jetpack-text-field
+        v-else
+        :model-value="modelValue"
+        :label="label"
+        :help-text="helpText"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :required="typedField.required"
+        @update:model-value="updateValue"
+    />
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% block jetpack_skeleton %}
+<span
+    v-bind="$attrs"
+    class="jetpack-skeleton"
+    :class="[`jetpack-skeleton--${variant}`, `jetpack-skeleton--${size}`]"
+    aria-hidden="true"
+></span>
+{% endblock %}

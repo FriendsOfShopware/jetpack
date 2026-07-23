@@ -1,0 +1,38 @@
+.jetpack-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 2px 8px;
+    color: var(--jetpack-color-text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    background: var(--jetpack-color-surface-muted);
+    border-radius: 999px;
+}
+
+.jetpack-badge--small {
+    min-height: 18px;
+    padding: 2px 6px;
+    font-size: 10px;
+}
+
+.jetpack-badge--info {
+    color: var(--jetpack-color-info);
+    background: var(--jetpack-color-info-soft);
+}
+
+.jetpack-badge--positive {
+    color: var(--jetpack-color-positive);
+    background: var(--jetpack-color-positive-soft);
+}
+
+.jetpack-badge--warning {
+    color: var(--jetpack-color-warning);
+    background: var(--jetpack-color-warning-soft);
+}
+
+.jetpack-badge--critical {
+    color: var(--jetpack-color-critical);
+    background: var(--jetpack-color-critical-soft);
+}

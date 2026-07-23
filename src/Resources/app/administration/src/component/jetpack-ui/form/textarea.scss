@@ -1,0 +1,18 @@
+.jetpack-textarea__control {
+    display: block;
+    width: 100%;
+    min-height: 96px;
+    padding: 10px 12px;
+    color: var(--jetpack-color-text);
+    font: inherit;
+    resize: vertical;
+    background: var(--jetpack-color-surface);
+    border: 1px solid var(--jetpack-color-border);
+    border-radius: var(--jetpack-radius-control);
+    outline: 0;
+
+    &:focus {
+        border-color: var(--jetpack-color-primary);
+        box-shadow: var(--jetpack-focus-ring);
+    }
+}

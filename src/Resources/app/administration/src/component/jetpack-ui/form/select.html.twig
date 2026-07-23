@@ -1,0 +1,36 @@
+{% block jetpack_select %}
+<jetpack-field-shell
+    :id="id"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :required="required"
+    :disabled="disabled"
+>
+    <template #control="{ controlId, describedBy }">
+        <select
+            :id="controlId"
+            v-bind="$attrs"
+            class="jetpack-select__control"
+            :value="modelValue"
+            :disabled="disabled"
+            :required="required"
+            :aria-describedby="describedBy"
+            :aria-invalid="Boolean(error) || undefined"
+            @change="onChange"
+        >
+            <option
+                v-if="placeholder"
+                disabled
+                value=""
+            >{{ placeholder }}</option>
+            <option
+                v-for="option in options"
+                :key="String(option.value)"
+                :value="option.value"
+                :disabled="option.disabled"
+            >{{ option.label }}</option>
+        </select>
+    </template>
+</jetpack-field-shell>
+{% endblock %}

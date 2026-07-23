@@ -1,0 +1,17 @@
+version: 1
+label:
+  en-GB: Test configuration
+tabs:
+  general:
+    label:
+      en-GB: General
+    sections:
+      behavior:
+        label:
+          en-GB: Behavior
+        fields:
+          enabled:
+            type: bool
+            default: true
+            label:
+              en-GB: Enabled

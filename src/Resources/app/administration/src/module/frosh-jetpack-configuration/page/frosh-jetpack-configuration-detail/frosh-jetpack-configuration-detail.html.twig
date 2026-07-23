@@ -1,0 +1,93 @@
+{% block frosh_jetpack_configuration_detail %}
+<sw-page class="frosh-jetpack-configuration-detail">
+    <template #smart-bar-header>
+        <h2>{{ bundle }}</h2>
+    </template>
+
+    <template #smart-bar-actions>
+        <jetpack-button
+            data-position-identifier="frosh-jetpack-configuration-save"
+            variant="primary"
+            :disabled="!canEdit"
+            :loading="isLoading"
+            @click="onSave"
+        >
+            {{ $t('global.default.save') }}
+        </jetpack-button>
+    </template>
+
+    <template #content>
+        <div class="frosh-jetpack-configuration-detail__content">
+            <jetpack-card data-position-identifier="frosh-jetpack-configuration-scope">
+                <jetpack-grid :columns="2">
+                    <jetpack-search-select
+                        v-model="salesChannelId"
+                        :options="salesChannelOptions"
+                        :label="$t('frosh-jetpack-configuration.detail.salesChannel')"
+                        :placeholder="$t('frosh-jetpack-configuration.detail.global')"
+                    />
+
+                    <jetpack-search-select
+                        v-model="languageId"
+                        :options="languageOptions"
+                        :label="$t('frosh-jetpack-configuration.detail.language')"
+                        :placeholder="$t('frosh-jetpack-configuration.detail.languageIndependent')"
+                    />
+                </jetpack-grid>
+            </jetpack-card>
+
+            <jetpack-loader v-if="isLoading && !state" />
+
+            <template v-else-if="state">
+                <jetpack-tabs
+                    v-if="activeTab"
+                    v-model="activeTab"
+                    data-position-identifier="frosh-jetpack-configuration-tabs"
+                    :tabs="tabItems"
+                >
+                    <template
+                        v-for="tab in tabs"
+                        :key="tab.key"
+                    >
+                        <template v-if="activeTab === tab.key">
+                            <jetpack-card
+                                v-for="section in sections(tab)"
+                                :key="section.key"
+                                :title="translate(section.label)"
+                                :subtitle="section.description ? translate(section.description) : undefined"
+                                :data-position-identifier="`frosh-jetpack-configuration-section-${tab.key}-${section.key}`"
+                            >
+                                <div
+                                    v-for="field in fields(section)"
+                                    :key="field.key"
+                                    class="frosh-jetpack-configuration-detail__field"
+                                >
+                                    <jetpack-switch
+                                        :model-value="state.values[field.key].overridden"
+                                        :label="$t('frosh-jetpack-configuration.detail.override')"
+                                        :disabled="!canEdit"
+                                        @update:model-value="setOverridden(field.key, $event)"
+                                    />
+
+                                    <frosh-jetpack-field
+                                        :field="field"
+                                        :model-value="state.values[field.key].value"
+                                        :disabled="!canEdit || !state.values[field.key].overridden"
+                                        @update:model-value="state.values[field.key].value = $event"
+                                    />
+
+                                    <small v-if="!state.values[field.key].overridden">
+                                        {{ $t('frosh-jetpack-configuration.detail.inherited', {
+                                        source: sourceLabel(state.values[field.key].inheritedSource)
+                                        }) }}
+                                    </small>
+                                </div>
+                            </jetpack-card>
+                        </template>
+                    </template>
+                </jetpack-tabs>
+            </template>
+        </div>
+    </template>
+</sw-page>
+{% endblock %}

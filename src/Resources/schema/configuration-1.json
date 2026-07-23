@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://raw.githubusercontent.com/FriendsOfShopware/jetpack/main/src/Resources/schema/configuration-1.json",
+    "title": "Frosh Jetpack extension configuration",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["version", "tabs"],
+    "properties": {
+        "version": { "const": 1 },
+        "label": { "$ref": "#/definitions/translatedString" },
+        "tabs": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": { "$ref": "#/definitions/key" },
+            "additionalProperties": { "$ref": "#/definitions/tab" }
+        }
+    },
+    "definitions": {
+        "key": {
+            "type": "string",
+            "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "translatedString": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": {
+                "type": "string",
+                "pattern": "^[a-z]{2}-[A-Z]{2}$"
+            },
+            "additionalProperties": {
+                "type": "string",
+                "minLength": 1
+            }
+        },
+        "tab": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "sections"],
+            "properties": {
+                "label": { "$ref": "#/definitions/translatedString" },
+                "position": { "type": "integer" },
+                "sections": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "propertyNames": { "$ref": "#/definitions/key" },
+                    "additionalProperties": { "$ref": "#/definitions/section" }
+                }
+            }
+        },
+        "section": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "fields"],
+            "properties": {
+                "label": { "$ref": "#/definitions/translatedString" },
+                "description": { "$ref": "#/definitions/translatedString" },
+                "position": { "type": "integer" },
+                "fields": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "propertyNames": { "$ref": "#/definitions/key" },
+                    "additionalProperties": { "$ref": "#/definitions/field" }
+                }
+            }
+        },
+        "field": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "default", "label"],
+            "properties": {
+                "type": {
+                    "enum": ["bool", "int", "float", "text", "textarea", "password", "single-select", "multi-select"]
+                },
+                "scope": {
+                    "enum": ["global", "sales-channel", "language", "sales-channel-language"],
+                    "default": "global"
+                },
+                "default": {},
+                "label": { "$ref": "#/definitions/translatedString" },
+                "helpText": { "$ref": "#/definitions/translatedString" },
+                "placeholder": { "$ref": "#/definitions/translatedString" },
+                "position": { "type": "integer" },
+                "nullable": { "type": "boolean", "default": false },
+                "required": { "type": "boolean", "default": false },
+                "min": { "type": "number" },
+                "max": { "type": "number" },
+                "minLength": { "type": "integer", "minimum": 0 },
+                "maxLength": { "type": "integer", "minimum": 1 },
+                "options": {
+                    "type": "object",
+                    "propertyNames": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "additionalProperties": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["label"],
+                        "properties": {
+                            "label": { "$ref": "#/definitions/translatedString" }
+                        }
+                    }
+                }
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "type": { "enum": ["single-select", "multi-select"] }
+                        }
+                    },
+                    "then": { "required": ["options"] }
+                }
+            ]
+        }
+    }
+}

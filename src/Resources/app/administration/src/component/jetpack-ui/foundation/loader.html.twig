@@ -1,0 +1,14 @@
+{% block jetpack_loader %}
+<span
+    class="jetpack-loader"
+    role="status"
+    :aria-label="label"
+    :style="{ width: resolvedSize, height: resolvedSize }"
+    v-bind="$attrs"
+>
+    <span
+        class="jetpack-loader__ring"
+        aria-hidden="true"
+    ></span>
+</span>
+{% endblock %}

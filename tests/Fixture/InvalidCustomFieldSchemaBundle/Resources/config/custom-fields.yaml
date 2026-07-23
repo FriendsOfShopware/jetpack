@@ -1,0 +1,11 @@
+version: 1
+sets:
+  acme_invalid:
+    label:
+      en-GB: Invalid
+    relations: [product]
+    fields:
+      acme_invalid_select:
+        type: single-select
+        label:
+          en-GB: Missing options

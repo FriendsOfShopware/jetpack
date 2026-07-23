@@ -1,0 +1,27 @@
+{% block jetpack_empty_state %}
+<section
+    v-bind="$attrs"
+    class="jetpack-empty-state"
+>
+    <div
+        v-if="icon || $slots.icon"
+        class="jetpack-empty-state__icon"
+    ><slot name="icon">
+        <jetpack-icon
+            :name="icon"
+            :size="40"
+        />
+    </slot></div>
+    <h3 class="jetpack-empty-state__title">
+        {{ title }}
+    </h3>
+    <p
+        v-if="description"
+        class="jetpack-empty-state__description"
+    >{{ description }}</p>
+    <div
+        v-if="$slots.default"
+        class="jetpack-empty-state__actions"
+    ><slot></slot></div>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+.jetpack-inheritance-control {
+    display: grid;
+    gap: 8px;
+}
+
+.jetpack-inheritance-control__header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.jetpack-inheritance-control__label {
+    color: var(--jetpack-color-text);
+    font-weight: 600;
+}
+
+.jetpack-inheritance-control--inherited .jetpack-inheritance-control__content {
+    pointer-events: none;
+    opacity: 0.55;
+}

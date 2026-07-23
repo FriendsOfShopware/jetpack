@@ -1,0 +1,19 @@
+{% block jetpack_popover %}
+<div
+    ref="root"
+    v-bind="$attrs"
+    class="jetpack-popover"
+>
+    <span class="jetpack-popover__trigger"><slot
+        name="trigger"
+        :open="modelValue"
+        :toggle="toggle"
+    ></slot></span>
+    <div
+        v-if="modelValue"
+        class="jetpack-popover__panel"
+        :class="`jetpack-popover__panel--${position}`"
+        role="dialog"
+    ><slot></slot></div>
+</div>
+{% endblock %}

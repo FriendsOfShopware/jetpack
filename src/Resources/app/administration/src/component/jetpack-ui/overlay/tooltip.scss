@@ -1,0 +1,50 @@
+.jetpack-tooltip {
+    position: relative;
+    display: inline-flex;
+}
+
+.jetpack-tooltip__content {
+    position: absolute;
+    z-index: 11000;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    width: max-content;
+    max-width: 240px;
+    padding: 6px 9px;
+    color: #fff;
+    font-size: 12px;
+    pointer-events: none;
+    visibility: hidden;
+    background: var(--jetpack-color-text);
+    border-radius: 4px;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity var(--jetpack-transition);
+}
+
+.jetpack-tooltip:hover .jetpack-tooltip__content,
+.jetpack-tooltip:focus-visible .jetpack-tooltip__content,
+.jetpack-tooltip:focus-within .jetpack-tooltip__content {
+    visibility: visible;
+    opacity: 1;
+}
+
+.jetpack-tooltip__content--bottom {
+    top: calc(100% + 8px);
+    bottom: auto;
+}
+
+.jetpack-tooltip__content--left {
+    top: 50%;
+    right: calc(100% + 8px);
+    bottom: auto;
+    left: auto;
+    transform: translateY(-50%);
+}
+
+.jetpack-tooltip__content--right {
+    top: 50%;
+    bottom: auto;
+    left: calc(100% + 8px);
+    transform: translateY(-50%);
+}

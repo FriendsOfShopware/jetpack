@@ -1,0 +1,40 @@
+{% block jetpack_tabs %}
+<div class="jetpack-tabs">
+    <div
+        class="jetpack-tabs__list"
+        role="tablist"
+        :aria-label="ariaLabel"
+    >
+        <button
+            v-for="tab in tabs"
+            :id="`${tabsId}-${tab.name}-tab`"
+            :key="tab.name"
+            class="jetpack-tabs__tab"
+            :class="{
+                'jetpack-tabs__tab--active': tab.name === modelValue,
+                'jetpack-tabs__tab--error': tab.error,
+            }"
+            type="button"
+            role="tab"
+            :disabled="tab.disabled"
+            :aria-selected="tab.name === modelValue"
+            :aria-controls="`${tabsId}-${tab.name}-panel`"
+            @click="select(tab.name)"
+        >
+            {{ tab.label }}
+            <jetpack-badge
+                v-if="tab.badge"
+                size="small"
+            >{{ tab.badge }}</jetpack-badge>
+        </button>
+    </div>
+    <div
+        :id="`${tabsId}-${modelValue}-panel`"
+        class="jetpack-tabs__panel"
+        role="tabpanel"
+        :aria-labelledby="`${tabsId}-${modelValue}-tab`"
+    >
+        <slot :active-tab="modelValue"></slot>
+    </div>
+</div>
+{% endblock %}

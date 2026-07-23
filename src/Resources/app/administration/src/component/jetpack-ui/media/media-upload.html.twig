@@ -1,0 +1,46 @@
+{% block jetpack_media_upload %}
+<jetpack-field-shell
+    :id="id"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :required="required"
+    :disabled="disabled"
+>
+    <template #control="{ controlId, describedBy }">
+        <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
+        <label
+            class="jetpack-media-upload"
+            :class="{
+                'jetpack-media-upload--dragging': dragging,
+                'jetpack-media-upload--disabled': disabled,
+            }"
+            :for="controlId"
+            @dragenter.prevent="dragging = true"
+            @dragover.prevent
+            @dragleave.prevent="dragging = false"
+            @drop.prevent="onDrop"
+        >
+            <input
+                :id="controlId"
+                v-bind="$attrs"
+                class="jetpack-media-upload__input"
+                type="file"
+                :accept="accept"
+                :multiple="multiple"
+                :disabled="disabled"
+                :required="required"
+                :aria-describedby="describedBy"
+                :aria-invalid="Boolean(error) || undefined"
+                @change="onChange"
+            >
+            <jetpack-icon
+                name="upload"
+                :size="32"
+            />
+            <span class="jetpack-media-upload__title">{{ title }}</span>
+            <span class="jetpack-media-upload__description">{{ description }}</span>
+        </label>
+    </template>
+</jetpack-field-shell>
+{% endblock %}

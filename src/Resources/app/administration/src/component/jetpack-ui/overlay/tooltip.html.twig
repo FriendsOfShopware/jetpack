@@ -1,0 +1,16 @@
+{% block jetpack_tooltip %}
+<span
+    v-bind="$attrs"
+    class="jetpack-tooltip"
+    tabindex="0"
+    :aria-describedby="tooltipId"
+>
+    <slot></slot>
+    <span
+        :id="tooltipId"
+        class="jetpack-tooltip__content"
+        :class="`jetpack-tooltip__content--${position}`"
+        role="tooltip"
+    >{{ text }}</span>
+</span>
+{% endblock %}

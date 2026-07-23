@@ -1,0 +1,13 @@
+.jetpack-pagination {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.jetpack-pagination__ellipsis {
+    display: grid;
+    place-items: center;
+    min-width: 32px;
+    color: var(--jetpack-color-text-muted);
+}

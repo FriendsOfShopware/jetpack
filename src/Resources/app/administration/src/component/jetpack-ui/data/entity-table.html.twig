@@ -1,0 +1,36 @@
+{% block jetpack_entity_table %}
+<div class="jetpack-entity-table">
+    <jetpack-data-table
+        v-bind="$attrs"
+        :items="entities"
+        :columns="columns"
+        :model-value="modelValue"
+        :item-key="itemKey"
+        :selectable="selectable"
+        :loading="loading"
+        :empty-text="emptyText"
+        :sort-by="sortBy"
+        :sort-direction="sortDirection"
+        @update:model-value="$emit('update:modelValue', $event)"
+        @selection-change="$emit('selection-change', $event)"
+        @row-click="$emit('row-click', $event)"
+        @sort-change="onSort"
+    >
+        <template
+            v-for="(_, name) in $slots"
+            #[name]="slotData"
+        ><slot
+            :name="name"
+            v-bind="slotData || {}"
+        ></slot></template>
+    </jetpack-data-table>
+    <jetpack-pagination
+        v-if="total > limit"
+        class="jetpack-entity-table__pagination"
+        :model-value="page"
+        :total="total"
+        :limit="limit"
+        @update:model-value="onPage"
+    />
+</div>
+{% endblock %}

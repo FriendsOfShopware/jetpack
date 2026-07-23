@@ -1,0 +1,19 @@
+version: 1
+default-locale: en-GB
+templates:
+  acme_order_confirmation:
+    available-entities:
+      order: order
+      salesChannel: sales_channel
+      editOrderUrl: null
+    translations:
+      en-GB:
+        name: Order confirmation
+        subject: "Your order {{ order.orderNumber }}"
+        sender-name: "{{ salesChannel.name }}"
+        description: Sent after order placement
+      de-DE:
+        name: Bestellbestätigung
+        subject: "Ihre Bestellung {{ order.orderNumber }}"
+        sender-name: "{{ salesChannel.name }}"
+        description: Wird nach der Bestellung versendet

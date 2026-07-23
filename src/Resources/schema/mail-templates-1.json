@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://raw.githubusercontent.com/FriendsOfShopware/jetpack/main/src/Resources/schema/mail-templates-1.json",
+    "title": "Frosh Jetpack mail templates",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["version", "default-locale", "templates"],
+    "properties": {
+        "$schema": { "type": "string" },
+        "version": { "const": 1 },
+        "default-locale": { "$ref": "#/definitions/locale" },
+        "templates": {
+            "type": "object",
+            "propertyNames": { "$ref": "#/definitions/technicalName" },
+            "additionalProperties": { "$ref": "#/definitions/template" }
+        }
+    },
+    "definitions": {
+        "technicalName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 255,
+            "pattern": "^[a-z][a-z0-9_.-]+$"
+        },
+        "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(?:-[A-Z][a-z]{3})?-[A-Z]{2}$"
+        },
+        "variableName": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+        },
+        "entityName": {
+            "type": ["string", "null"],
+            "pattern": "^[a-z][a-z0-9_]{1,254}$"
+        },
+        "translation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "subject"],
+            "properties": {
+                "name": { "type": "string", "minLength": 1, "maxLength": 255 },
+                "subject": { "type": "string", "minLength": 1, "maxLength": 255 },
+                "sender-name": { "type": "string", "minLength": 1, "maxLength": 255 },
+                "description": { "type": "string", "minLength": 1 }
+            }
+        },
+        "template": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["available-entities", "translations"],
+            "properties": {
+                "available-entities": {
+                    "type": "object",
+                    "propertyNames": { "$ref": "#/definitions/variableName" },
+                    "additionalProperties": { "$ref": "#/definitions/entityName" }
+                },
+                "update-policy": {
+                    "enum": ["preserve-user-changes", "overwrite"],
+                    "default": "preserve-user-changes"
+                },
+                "translations": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "propertyNames": { "$ref": "#/definitions/locale" },
+                    "additionalProperties": { "$ref": "#/definitions/translation" }
+                }
+            }
+        }
+    }
+}

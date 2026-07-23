@@ -1,0 +1,64 @@
+:root {
+    --jetpack-color-brand: #0870ff;
+    --jetpack-color-primary: var(--jetpack-color-brand);
+    --jetpack-color-brand-hover: #005acb;
+    --jetpack-color-brand-soft: #e7f1ff;
+    --jetpack-color-critical: #d72c0d;
+    --jetpack-color-critical-hover: #b4230b;
+    --jetpack-color-critical-soft: #fff0ed;
+    --jetpack-color-positive: #087f5b;
+    --jetpack-color-positive-soft: #e6fcf5;
+    --jetpack-color-warning: #946200;
+    --jetpack-color-warning-soft: #fff7db;
+    --jetpack-color-info: #075985;
+    --jetpack-color-info-soft: #e6f6ff;
+    --jetpack-color-text: #182233;
+    --jetpack-color-text-secondary: #526477;
+    --jetpack-color-text-muted: var(--jetpack-color-text-secondary);
+    --jetpack-color-text-disabled: #8d9bad;
+    --jetpack-color-border: #c5ced8;
+    --jetpack-color-border-strong: #8d9bad;
+    --jetpack-color-border-soft: #e4e9ee;
+    --jetpack-color-surface: #fff;
+    --jetpack-color-surface-muted: #f5f7f9;
+    --jetpack-color-surface-subtle: var(--jetpack-color-surface-muted);
+    --jetpack-color-surface-hover: #edf1f5;
+    --jetpack-color-overlay: rgba(15, 23, 42, 55%);
+    --jetpack-radius-small: 4px;
+    --jetpack-radius: 6px;
+    --jetpack-radius-control: var(--jetpack-radius);
+    --jetpack-radius-large: 10px;
+    --jetpack-shadow: 0 8px 30px rgba(15, 23, 42, 16%);
+    --jetpack-shadow-popover: var(--jetpack-shadow);
+    --jetpack-font-family: inter, "Helvetica Neue", arial, sans-serif;
+    --jetpack-font-size-small: 12px;
+    --jetpack-font-size: 14px;
+    --jetpack-font-size-large: 16px;
+    --jetpack-focus-ring: 0 0 0 3px rgba(8, 112, 255, 24%);
+    --jetpack-control-height-small: 32px;
+    --jetpack-control-height: 40px;
+    --jetpack-control-height-large: 48px;
+    --jetpack-transition: 150ms ease;
+    --jetpack-transition-fast: var(--jetpack-transition);
+    --jetpack-space-1: 4px;
+    --jetpack-space-2: 8px;
+    --jetpack-space-3: 12px;
+    --jetpack-space-4: 16px;
+    --jetpack-space-5: 24px;
+    --jetpack-space-6: 32px;
+}
+
+[class^="jetpack-"],
+[class*=" jetpack-"] {
+    box-sizing: border-box;
+    font-family: var(--jetpack-font-family);
+}
+
+[class^="jetpack-"] *,
+[class^="jetpack-"] *::before,
+[class^="jetpack-"] *::after,
+[class*=" jetpack-"] *,
+[class*=" jetpack-"] *::before,
+[class*=" jetpack-"] *::after {
+    box-sizing: border-box;
+}

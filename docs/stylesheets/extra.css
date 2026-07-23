@@ -1,0 +1,106 @@
+:root > * {
+    --md-primary-fg-color: #0870ff;
+    --md-primary-fg-color--light: #5b9dff;
+    --md-primary-fg-color--dark: #0057d9;
+    --md-accent-fg-color: #00a6b8;
+}
+
+[data-md-color-scheme="slate"] {
+    --md-hue: 218;
+    --md-primary-fg-color: #5b9dff;
+    --md-primary-fg-color--light: #8bb9ff;
+    --md-primary-fg-color--dark: #0870ff;
+    --md-accent-fg-color: #36d7e5;
+}
+
+.jetpack-hero {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 2rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid color-mix(in srgb, var(--md-primary-fg-color) 24%, transparent);
+    border-radius: 1.25rem;
+    background:
+        radial-gradient(circle at 92% 12%, color-mix(in srgb, var(--md-accent-fg-color) 28%, transparent), transparent 34%),
+        linear-gradient(135deg, color-mix(in srgb, var(--md-primary-fg-color) 15%, transparent), transparent 70%);
+}
+
+.jetpack-hero h1 {
+    max-width: 18ch;
+    margin: 0 0 0.75rem;
+    font-size: clamp(2rem, 5vw, 3.7rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+}
+
+.jetpack-hero p {
+    max-width: 62ch;
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.jetpack-kicker {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    color: var(--md-primary-fg-color);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.jetpack-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.4rem;
+}
+
+.jetpack-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+}
+
+.jetpack-card {
+    padding: 1.2rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.9rem;
+    background: color-mix(in srgb, var(--md-default-bg-color) 94%, var(--md-primary-fg-color) 6%);
+}
+
+.jetpack-card h3 {
+    margin: 0 0 0.4rem;
+}
+
+.jetpack-card p {
+    margin: 0;
+    color: var(--md-default-fg-color--light);
+}
+
+.jetpack-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1rem 0 0;
+}
+
+.jetpack-badge {
+    padding: 0.28rem 0.6rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 999px;
+    color: var(--md-default-fg-color--light);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 44rem) {
+    .jetpack-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .jetpack-hero h1 {
+        max-width: none;
+    }
+}

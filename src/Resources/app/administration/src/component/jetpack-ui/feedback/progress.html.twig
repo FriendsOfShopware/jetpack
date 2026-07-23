@@ -1,0 +1,28 @@
+{% block jetpack_progress %}
+<div
+    v-bind="$attrs"
+    class="jetpack-progress"
+>
+    <div
+        v-if="label || showValue"
+        class="jetpack-progress__header"
+    >
+        <span>{{ label }}</span>
+        <span v-if="showValue">{{ normalizedValue }}%</span>
+    </div>
+    <div
+        class="jetpack-progress__track"
+        role="progressbar"
+        :aria-label="label || 'Progress'"
+        :aria-valuenow="indeterminate ? undefined : normalizedValue"
+        aria-valuemin="0"
+        aria-valuemax="100"
+    >
+        <div
+            class="jetpack-progress__value"
+            :class="{ 'jetpack-progress__value--indeterminate': indeterminate }"
+            :style="indeterminate ? undefined : { width: `${normalizedValue}%` }"
+        ></div>
+    </div>
+</div>
+{% endblock %}

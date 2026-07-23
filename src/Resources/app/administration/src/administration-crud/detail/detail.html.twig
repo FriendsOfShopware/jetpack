@@ -1,0 +1,110 @@
+{% block frosh_jetpack_crud_detail %}
+<sw-page class="frosh-jetpack-crud-detail">
+    <template #smart-bar-header>
+        <h2>
+            {{ $t(definition.module.titleSnippet) }}
+            <span v-if="entityLabel">— {{ entityLabel }}</span>
+        </h2>
+    </template>
+
+    <template
+        v-if="translationEnabled"
+        #language-switch
+    >
+        <jetpack-entity-select
+            class="frosh-jetpack-crud-detail__language"
+            entity="language"
+            :model-value="languageId"
+            :label-property="definition.translation.languageLabelProperty || 'name'"
+            :context="apiContext"
+            :disabled="mode === 'create' || loading || saving"
+            :placeholder="$t('frosh-jetpack-crud.translation.language')"
+            @update:model-value="changeLanguage"
+            @load-error="onFieldLoadError"
+        />
+    </template>
+
+    <template #smart-bar-actions>
+        <jetpack-button
+            :disabled="saving"
+            @click="cancel"
+        >
+            {{ $t('frosh-jetpack-crud.actions.cancel') }}
+        </jetpack-button>
+        <jetpack-button
+            variant="primary"
+            :disabled="!canSave || loading"
+            :loading="saving"
+            @click="save"
+        >{{ $t(`${definition.snippets}.detail.actions.save`) }}</jetpack-button>
+        <jetpack-button
+            v-for="action in detail.actions || []"
+            :key="action.id"
+            :variant="action.variant || 'secondary'"
+            :disabled="!canRunAction(action) || loading || saving || Boolean(runningAction)"
+            :loading="runningAction === action.id"
+            @click="runDetailAction(action)"
+        >{{ $t(action.labelSnippet) }}</jetpack-button>
+    </template>
+
+    <template #content>
+        <div class="frosh-jetpack-crud-detail__content">
+            <jetpack-banner
+                v-if="loadError"
+                variant="critical"
+                :message="$t('frosh-jetpack-crud.errors.load')"
+            >
+                <template #actions>
+                    <jetpack-button
+                        size="small"
+                        @click="load"
+                    >
+                        {{ $t('frosh-jetpack-crud.actions.retry') }}
+                    </jetpack-button>
+                </template>
+            </jetpack-banner>
+
+            <jetpack-banner
+                v-if="saveError"
+                variant="critical"
+                dismissible
+                :message="$t('frosh-jetpack-crud.errors.save')"
+                @dismiss="saveError = false"
+            />
+
+            <jetpack-banner
+                v-if="actionError"
+                variant="critical"
+                dismissible
+                :message="$t('frosh-jetpack-crud.errors.action')"
+                @dismiss="actionError = false"
+            />
+
+            <jetpack-loader
+                v-if="loading"
+                :label="$t('frosh-jetpack-crud.detail.loading')"
+            />
+
+            <template v-if="entity && !loading">
+                <jetpack-card
+                    v-for="card in detail.cards"
+                    :key="card.id"
+                    :title="$t(card.titleSnippet || `${definition.snippets}.detail.cards.${card.id}.title`)"
+                >
+                    <div class="frosh-jetpack-crud-detail__fields">
+                        <component
+                            :is="fieldComponent(field)"
+                            v-for="field in card.fields"
+                            :key="field.id"
+                            :model-value="fieldValue(field)"
+                            v-bind="fieldProps(field)"
+                            @update:model-value="updateField(field, $event)"
+                            @load-error="onFieldLoadError"
+                        />
+                    </div>
+                </jetpack-card>
+            </template>
+        </div>
+    </template>
+</sw-page>
+{% endblock %}

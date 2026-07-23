@@ -1,0 +1,20 @@
+version: 1
+sets:
+  acme_first:
+    label:
+      en-GB: First
+    relations: [product]
+    fields:
+      acme_duplicate:
+        type: text
+        label:
+          en-GB: Duplicate
+  acme_second:
+    label:
+      en-GB: Second
+    relations: [customer]
+    fields:
+      acme_duplicate:
+        type: bool
+        label:
+          en-GB: Duplicate again

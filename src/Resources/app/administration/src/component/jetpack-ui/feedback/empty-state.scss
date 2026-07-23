@@ -1,0 +1,36 @@
+.jetpack-empty-state {
+    display: grid;
+    justify-items: center;
+    max-width: 560px;
+    padding: 48px 24px;
+    margin: 0 auto;
+    color: var(--jetpack-color-text);
+    text-align: center;
+}
+
+.jetpack-empty-state__icon {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+    color: var(--jetpack-color-primary);
+    background: var(--jetpack-color-brand-soft);
+    border-radius: 50%;
+}
+
+.jetpack-empty-state__title {
+    margin: 0;
+    font-size: 20px;
+}
+
+.jetpack-empty-state__description {
+    margin: 8px 0 0;
+    color: var(--jetpack-color-text-muted);
+}
+
+.jetpack-empty-state__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}

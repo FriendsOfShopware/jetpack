@@ -1,0 +1,30 @@
+.frosh-jetpack-crud-list {
+    &__content {
+        display: grid;
+        gap: var(--jetpack-space-5);
+        padding: var(--jetpack-space-6);
+    }
+
+    &__search {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--jetpack-space-3);
+        align-items: end;
+    }
+
+    &__row-actions {
+        display: flex;
+        gap: var(--jetpack-space-2);
+        justify-content: flex-end;
+    }
+
+    &__language {
+        width: 240px;
+    }
+
+    &__bulk-actions {
+        display: flex;
+        gap: var(--jetpack-space-2);
+        align-items: center;
+    }
+}

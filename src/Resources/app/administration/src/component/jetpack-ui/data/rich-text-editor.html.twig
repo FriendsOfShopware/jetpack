@@ -1,0 +1,47 @@
+{% block jetpack_rich_text_editor %}
+<jetpack-field-shell
+    :id="id"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :required="required"
+    :disabled="disabled"
+>
+    <template #control="{ controlId, describedBy }">
+        <div
+            class="jetpack-rich-text-editor"
+            :class="{ 'jetpack-rich-text-editor--disabled': disabled }"
+        >
+            <div
+                class="jetpack-rich-text-editor__toolbar"
+                role="toolbar"
+                aria-label="Text formatting"
+            >
+                <button
+                    v-for="action in actions"
+                    :key="action.command"
+                    class="jetpack-rich-text-editor__action"
+                    type="button"
+                    :aria-label="action.label"
+                    :disabled="disabled"
+                    @mousedown.prevent="execute(action.command, action.value)"
+                >{{ action.shortLabel }}</button>
+            </div>
+            <div
+                :id="controlId"
+                ref="editor"
+                v-bind="$attrs"
+                class="jetpack-rich-text-editor__content"
+                :contenteditable="!disabled"
+                :aria-describedby="describedBy"
+                :aria-invalid="Boolean(error) || undefined"
+                role="textbox"
+                aria-multiline="true"
+                @input="onInput"
+                @blur="$emit('blur', $event)"
+                @focus="$emit('focus', $event)"
+            ></div>
+        </div>
+    </template>
+</jetpack-field-shell>
+{% endblock %}

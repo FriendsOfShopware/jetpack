@@ -1,0 +1,85 @@
+{% set froshJetpackAssets = frosh_jetpack_administration_assets() %}
+
+{% for stylesheet in froshJetpackAssets.styles %}
+    <link rel="stylesheet" href="{{ asset(stylesheet, 'asset') }}">
+{% endfor %}
+
+<script nonce="{{ cspNonce }}">
+    (() => {
+        const entryKey = Symbol.for('frosh.jetpack.administration.entry');
+
+        if (!globalThis[entryKey]) {
+            let resolveEntry;
+            let rejectEntry;
+            const ready = new Promise((resolve, reject) => {
+                resolveEntry = resolve;
+                rejectEntry = reject;
+            });
+
+            globalThis[entryKey] = { ready, resolveEntry, rejectEntry };
+        }
+
+        {% if patchClassicApplication %}
+        const patchApplication = (shopware) => {
+            const application = shopware.Application;
+            const originalStart = application.start.bind(application);
+            const entry = globalThis[entryKey];
+            application.start = (...args) => entry.ready.then(() => originalStart(...args));
+        };
+
+        if (globalThis.Shopware) {
+            patchApplication(globalThis.Shopware);
+            return;
+        }
+
+        Object.defineProperty(globalThis, 'Shopware', {
+            configurable: true,
+            get: () => undefined,
+            set: (shopware) => {
+                Object.defineProperty(globalThis, 'Shopware', {
+                    configurable: true,
+                    enumerable: true,
+                    writable: true,
+                    value: shopware,
+                });
+                patchApplication(shopware);
+            },
+        });
+        {% endif %}
+    })();
+</script>
+
+<script
+    id="frosh-jetpack-administration-entry"
+    type="module"
+    nonce="{{ cspNonce }}"
+    src="{{ asset(froshJetpackAssets.script, 'asset') }}"
+></script>
+
+<script nonce="{{ cspNonce }}">
+    (() => {
+        const entryKey = Symbol.for('frosh.jetpack.administration.entry');
+        const bootstrapKey = Symbol.for('frosh.jetpack.administration.bootstrap');
+        const entry = globalThis[entryKey];
+        const script = document.getElementById('frosh-jetpack-administration-entry');
+        const finish = () => {
+            const bootstrap = globalThis[bootstrapKey];
+            if (!bootstrap) {
+                entry.rejectEntry(new Error('[FroshJetpack] Administration bootstrap was not created'));
+                return;
+            }
+
+            entry.resolveEntry(bootstrap.ready);
+        };
+
+        if (!script) {
+            entry.rejectEntry(new Error('[FroshJetpack] Administration entry asset is missing'));
+            return;
+        }
+
+        script.addEventListener('load', finish, { once: true });
+        script.addEventListener('error', () => {
+            entry.rejectEntry(new Error('[FroshJetpack] Administration entry asset failed to load'));
+        }, { once: true });
+    })();
+</script>

@@ -1,0 +1,63 @@
+version: 1
+label:
+  en-GB: Test configuration
+tabs:
+  general:
+    label:
+      en-GB: General
+    sections:
+      behavior:
+        label:
+          en-GB: Behavior
+        fields:
+          enabled:
+            type: bool
+            scope: sales-channel-language
+            default: true
+            label:
+              en-GB: Enabled
+          headline:
+            type: text
+            scope: language
+            default: Default headline
+            minLength: 3
+            maxLength: 80
+            label:
+              en-GB: Headline
+          retries:
+            type: int
+            default: 3
+            min: 0
+            max: 10
+            label:
+              en-GB: Retries
+          ratio:
+            type: float
+            default: 1.5
+            label:
+              en-GB: Ratio
+          mode:
+            type: single-select
+            default: safe
+            label:
+              en-GB: Mode
+            options:
+              safe:
+                label:
+                  en-GB: Safe
+              fast:
+                label:
+                  en-GB: Fast
+          features:
+            type: multi-select
+            scope: sales-channel
+            default: [search]
+            label:
+              en-GB: Features
+            options:
+              search:
+                label:
+                  en-GB: Search
+              export:
+                label:
+                  en-GB: Export

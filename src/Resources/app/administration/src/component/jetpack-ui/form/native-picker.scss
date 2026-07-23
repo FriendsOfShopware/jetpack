@@ -1,0 +1,32 @@
+.jetpack-native-picker__control {
+    width: 100%;
+    height: var(--jetpack-control-height);
+    padding: 0 12px;
+    color: var(--jetpack-color-text);
+    font: inherit;
+    background: var(--jetpack-color-surface);
+    border: 1px solid var(--jetpack-color-border);
+    border-radius: var(--jetpack-radius-control);
+    outline: 0;
+
+    &:focus {
+        border-color: var(--jetpack-color-primary);
+        box-shadow: var(--jetpack-focus-ring);
+    }
+}
+
+.jetpack-native-picker--color {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.jetpack-native-picker--color .jetpack-native-picker__control {
+    width: 52px;
+    padding: 4px;
+}
+
+.jetpack-native-picker__color-value {
+    color: var(--jetpack-color-text-secondary);
+    font-family: monospace;
+}

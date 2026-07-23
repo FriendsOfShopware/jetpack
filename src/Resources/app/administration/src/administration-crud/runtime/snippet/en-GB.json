@@ -1,0 +1,50 @@
+{
+    "frosh-jetpack-crud": {
+        "general": {
+            "title": "Frosh Jetpack CRUD",
+            "description": "Declarative Administration entity management"
+        },
+        "actions": {
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "delete": "Delete",
+            "retry": "Try again"
+        },
+        "list": {
+            "empty": "No entries found"
+        },
+        "detail": {
+            "loading": "Loading entry"
+        },
+        "delete": {
+            "title": "Delete entry",
+            "message": "Do you really want to delete this entry?"
+        },
+        "association": {
+            "empty": "No matching entries found",
+            "loading": "Loading entries…",
+            "search": "Search entries…"
+        },
+        "translation": {
+            "language": "Language"
+        },
+        "bulk": {
+            "selected": "{count} selected",
+            "delete": "Delete selected",
+            "deleteTitle": "Delete selected entries",
+            "deleteMessage": "Do you really want to delete {count} selected entries?",
+            "confirmTitle": "Run bulk action",
+            "confirmMessage": "Run this action for {count} selected entries?"
+        },
+        "values": {
+            "yes": "Yes",
+            "no": "No"
+        },
+        "errors": {
+            "load": "The data could not be loaded.",
+            "save": "The entry could not be saved.",
+            "delete": "The entry could not be deleted.",
+            "action": "The action could not be completed."
+        }
+    }
+}

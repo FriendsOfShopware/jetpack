@@ -1,0 +1,25 @@
+{
+    "frosh-jetpack-configuration": {
+        "general": {
+            "title": "Extension configuration",
+            "description": "Configure extensions powered by Frosh Jetpack"
+        },
+        "list": {
+            "empty": "No active extension provides a Jetpack configuration.",
+            "open": "Configure"
+        },
+        "detail": {
+            "salesChannel": "Sales channel",
+            "language": "Language",
+            "global": "Global",
+            "languageIndependent": "Language independent",
+            "override": "Override in this scope",
+            "inherited": "Inherited from {source}",
+            "defaultSource": "YAML default",
+            "globalSource": "global configuration",
+            "saveSuccess": "Configuration saved.",
+            "saveError": "The configuration could not be saved.",
+            "loadError": "The configuration could not be loaded."
+        }
+    }
+}

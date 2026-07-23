@@ -1,0 +1,284 @@
+{
+  "_bootstrap-BDrvWLLS.css": {
+    "file": "assets/bootstrap-BDrvWLLS.css",
+    "src": "_bootstrap-BDrvWLLS.css"
+  },
+  "_bootstrap-Dty1ZK0f.js": {
+    "file": "assets/bootstrap-Dty1ZK0f.js",
+    "name": "bootstrap",
+    "isDynamicEntry": true,
+    "imports": [
+      "main.ts"
+    ],
+    "dynamicImports": [
+      "component/jetpack-ui/internal/field-shell.ts",
+      "component/jetpack-ui/foundation/button.ts",
+      "component/jetpack-ui/foundation/icon.ts",
+      "component/jetpack-ui/foundation/link.ts",
+      "component/jetpack-ui/foundation/loader.ts",
+      "component/jetpack-ui/form/textarea.ts",
+      "component/jetpack-ui/form/select.ts",
+      "component/jetpack-ui/form/entity-select.ts",
+      "component/jetpack-ui/form/entity-multi-select.ts",
+      "component/jetpack-ui/form/inheritance-control.ts",
+      "component/jetpack-ui/layout/card.ts",
+      "component/jetpack-ui/navigation/tabs.ts",
+      "component/jetpack-ui/feedback/empty-state.ts",
+      "component/jetpack-ui/feedback/banner.ts",
+      "component/jetpack-ui/feedback/badge.ts",
+      "component/jetpack-ui/feedback/progress.ts",
+      "component/jetpack-ui/feedback/skeleton.ts",
+      "component/jetpack-ui/navigation/pagination.ts",
+      "component/jetpack-ui/overlay/modal.ts",
+      "component/jetpack-ui/overlay/tooltip.ts",
+      "component/jetpack-ui/overlay/popover.ts",
+      "component/jetpack-ui/data/data-table.ts",
+      "component/jetpack-ui/data/entity-table.ts",
+      "component/jetpack-ui/data/rich-text-editor.ts",
+      "component/jetpack-ui/data/chart.ts",
+      "component/jetpack-ui/media/avatar.ts",
+      "component/jetpack-ui/media/media-preview.ts",
+      "component/jetpack-ui/media/media-upload.ts",
+      "administration-crud/listing/index.ts",
+      "administration-crud/detail/index.ts"
+    ],
+    "css": [
+      "assets/bootstrap-BDrvWLLS.css"
+    ]
+  },
+  "_host-BIc3mTOD.js": {
+    "file": "assets/host-BIc3mTOD.js",
+    "name": "host"
+  },
+  "administration-crud/detail/index.ts": {
+    "file": "assets/index-mAy-Pn3T.js",
+    "name": "index",
+    "src": "administration-crud/detail/index.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "_host-BIc3mTOD.js",
+      "main.ts"
+    ]
+  },
+  "administration-crud/listing/index.ts": {
+    "file": "assets/index-CpNt4rBy.js",
+    "name": "index",
+    "src": "administration-crud/listing/index.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "_host-BIc3mTOD.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/data/chart.ts": {
+    "file": "assets/chart-yaPqEmVB.js",
+    "name": "chart",
+    "src": "component/jetpack-ui/data/chart.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/data/data-table.ts": {
+    "file": "assets/data-table-CFqEZm6m.js",
+    "name": "data-table",
+    "src": "component/jetpack-ui/data/data-table.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/data/entity-table.ts": {
+    "file": "assets/entity-table-xAmlXpNF.js",
+    "name": "entity-table",
+    "src": "component/jetpack-ui/data/entity-table.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/data/rich-text-editor.ts": {
+    "file": "assets/rich-text-editor-AewvkJmb.js",
+    "name": "rich-text-editor",
+    "src": "component/jetpack-ui/data/rich-text-editor.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/feedback/badge.ts": {
+    "file": "assets/badge-Qz-z7Y9O.js",
+    "name": "badge",
+    "src": "component/jetpack-ui/feedback/badge.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/feedback/banner.ts": {
+    "file": "assets/banner-BKJc9za1.js",
+    "name": "banner",
+    "src": "component/jetpack-ui/feedback/banner.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/feedback/empty-state.ts": {
+    "file": "assets/empty-state-yZYUFn_-.js",
+    "name": "empty-state",
+    "src": "component/jetpack-ui/feedback/empty-state.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/feedback/progress.ts": {
+    "file": "assets/progress-BIP3gDDe.js",
+    "name": "progress",
+    "src": "component/jetpack-ui/feedback/progress.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/feedback/skeleton.ts": {
+    "file": "assets/skeleton-qTuJfU3_.js",
+    "name": "skeleton",
+    "src": "component/jetpack-ui/feedback/skeleton.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/form/entity-multi-select.ts": {
+    "file": "assets/entity-multi-select-CjvAYmYl.js",
+    "name": "entity-multi-select",
+    "src": "component/jetpack-ui/form/entity-multi-select.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/form/entity-select.ts": {
+    "file": "assets/entity-select-BkG6iBIQ.js",
+    "name": "entity-select",
+    "src": "component/jetpack-ui/form/entity-select.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/form/inheritance-control.ts": {
+    "file": "assets/inheritance-control-BjUbK4yR.js",
+    "name": "inheritance-control",
+    "src": "component/jetpack-ui/form/inheritance-control.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/form/select.ts": {
+    "file": "assets/select-DxAHCiZ-.js",
+    "name": "select",
+    "src": "component/jetpack-ui/form/select.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/form/textarea.ts": {
+    "file": "assets/textarea-DYLXx64k.js",
+    "name": "textarea",
+    "src": "component/jetpack-ui/form/textarea.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/foundation/button.ts": {
+    "file": "assets/button-CLwJUapm.js",
+    "name": "button",
+    "src": "component/jetpack-ui/foundation/button.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/foundation/icon.ts": {
+    "file": "assets/icon-CI0mjQRM.js",
+    "name": "icon",
+    "src": "component/jetpack-ui/foundation/icon.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/foundation/link.ts": {
+    "file": "assets/link-DFDPBZI8.js",
+    "name": "link",
+    "src": "component/jetpack-ui/foundation/link.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/foundation/loader.ts": {
+    "file": "assets/loader-BNKD6J40.js",
+    "name": "loader",
+    "src": "component/jetpack-ui/foundation/loader.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/internal/field-shell.ts": {
+    "file": "assets/field-shell-BzLyNjQw.js",
+    "name": "field-shell",
+    "src": "component/jetpack-ui/internal/field-shell.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/layout/card.ts": {
+    "file": "assets/card-D4579tpy.js",
+    "name": "card",
+    "src": "component/jetpack-ui/layout/card.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/media/avatar.ts": {
+    "file": "assets/avatar-CZBvnkto.js",
+    "name": "avatar",
+    "src": "component/jetpack-ui/media/avatar.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/media/media-preview.ts": {
+    "file": "assets/media-preview-DLNhsMiv.js",
+    "name": "media-preview",
+    "src": "component/jetpack-ui/media/media-preview.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/media/media-upload.ts": {
+    "file": "assets/media-upload-Dl58k0GY.js",
+    "name": "media-upload",
+    "src": "component/jetpack-ui/media/media-upload.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/navigation/pagination.ts": {
+    "file": "assets/pagination-BmDhg2_z.js",
+    "name": "pagination",
+    "src": "component/jetpack-ui/navigation/pagination.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/navigation/tabs.ts": {
+    "file": "assets/tabs-CoP21WK8.js",
+    "name": "tabs",
+    "src": "component/jetpack-ui/navigation/tabs.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/overlay/modal.ts": {
+    "file": "assets/modal-B4a3NDuU.js",
+    "name": "modal",
+    "src": "component/jetpack-ui/overlay/modal.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "component/jetpack-ui/overlay/popover.ts": {
+    "file": "assets/popover-3lnf1VUK.js",
+    "name": "popover",
+    "src": "component/jetpack-ui/overlay/popover.ts",
+    "isDynamicEntry": true
+  },
+  "component/jetpack-ui/overlay/tooltip.ts": {
+    "file": "assets/tooltip-S9gs-h-a.js",
+    "name": "tooltip",
+    "src": "component/jetpack-ui/overlay/tooltip.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_bootstrap-Dty1ZK0f.js",
+      "main.ts"
+    ]
+  },
+  "main.ts": {
+    "file": "assets/frosh-jetpack-weg-dpvU.js",
+    "name": "frosh-jetpack",
+    "src": "main.ts",
+    "isEntry": true,
+    "dynamicImports": [
+      "_bootstrap-Dty1ZK0f.js"
+    ]
+  }
+}

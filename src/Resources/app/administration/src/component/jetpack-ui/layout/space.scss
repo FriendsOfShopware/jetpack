@@ -1,0 +1,68 @@
+.jetpack-grid,
+.jetpack-stack {
+    display: grid;
+}
+
+.jetpack-grid--columns-1 {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.jetpack-grid--columns-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.jetpack-grid--columns-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.jetpack-grid--columns-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.jetpack-stack--horizontal {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.jetpack-grid--gap-small,
+.jetpack-stack--gap-small {
+    gap: 8px;
+}
+
+.jetpack-grid--gap-default,
+.jetpack-stack--gap-default {
+    gap: 16px;
+}
+
+.jetpack-grid--gap-large,
+.jetpack-stack--gap-large {
+    gap: 24px;
+}
+
+.jetpack-grid--align-start,
+.jetpack-stack--align-start {
+    align-items: start;
+}
+
+.jetpack-grid--align-center,
+.jetpack-stack--align-center {
+    align-items: center;
+}
+
+.jetpack-grid--align-end,
+.jetpack-stack--align-end {
+    align-items: end;
+}
+
+.jetpack-grid--align-stretch,
+.jetpack-stack--align-stretch {
+    align-items: stretch;
+}
+
+@media (max-width: 800px) {
+    .jetpack-grid--columns-2,
+    .jetpack-grid--columns-3,
+    .jetpack-grid--columns-4 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

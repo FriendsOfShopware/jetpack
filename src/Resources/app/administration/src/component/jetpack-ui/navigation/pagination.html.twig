@@ -1,0 +1,39 @@
+{% block jetpack_pagination %}
+<nav
+    v-bind="$attrs"
+    class="jetpack-pagination"
+    :aria-label="ariaLabel"
+>
+    <jetpack-button
+        variant="tertiary"
+        square
+        :disabled="modelValue <= 1"
+        aria-label="Previous page"
+        @click="select(modelValue - 1)"
+    ><jetpack-icon name="chevron-left" /></jetpack-button>
+    <template
+        v-for="page in visiblePages"
+        :key="page"
+    >
+        <span
+            v-if="page === 'ellipsis'"
+            class="jetpack-pagination__ellipsis"
+        >…</span>
+        <jetpack-button
+            v-else
+            :variant="page === modelValue ? 'primary' : 'tertiary'"
+            square
+            :aria-label="`Page ${page}`"
+            :aria-current="page === modelValue ? 'page' : undefined"
+            @click="select(page)"
+        >{{ page }}</jetpack-button>
+    </template>
+    <jetpack-button
+        variant="tertiary"
+        square
+        :disabled="modelValue >= pageCount"
+        aria-label="Next page"
+        @click="select(modelValue + 1)"
+    ><jetpack-icon name="chevron-right" /></jetpack-button>
+</nav>
+{% endblock %}

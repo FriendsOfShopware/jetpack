@@ -1,0 +1,128 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://raw.githubusercontent.com/FriendsOfShopware/jetpack/main/src/Resources/schema/custom-fields-1.json",
+    "title": "Frosh Jetpack custom fields",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["version", "sets"],
+    "properties": {
+        "$schema": { "type": "string" },
+        "version": { "const": 1 },
+        "sets": {
+            "type": "object",
+            "propertyNames": { "$ref": "#/definitions/technicalName" },
+            "additionalProperties": { "$ref": "#/definitions/set" }
+        }
+    },
+    "definitions": {
+        "technicalName": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{1,254}$"
+        },
+        "translatedString": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": {
+                "type": "string",
+                "pattern": "^[a-z]{2,3}-[A-Z]{2}$"
+            },
+            "additionalProperties": {
+                "type": "string",
+                "minLength": 1
+            }
+        },
+        "set": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "relations", "fields"],
+            "properties": {
+                "label": { "$ref": "#/definitions/translatedString" },
+                "global": { "type": "boolean", "default": false },
+                "active": { "type": "boolean", "default": true },
+                "position": { "type": "integer", "default": 1 },
+                "relations": {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": { "$ref": "#/definitions/technicalName" }
+                },
+                "fields": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "propertyNames": { "$ref": "#/definitions/technicalName" },
+                    "additionalProperties": { "$ref": "#/definitions/field" }
+                }
+            }
+        },
+        "option": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label"],
+            "properties": {
+                "label": { "$ref": "#/definitions/translatedString" }
+            }
+        },
+        "field": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "label"],
+            "properties": {
+                "type": {
+                    "enum": [
+                        "int",
+                        "float",
+                        "text",
+                        "text-area",
+                        "bool",
+                        "datetime",
+                        "single-select",
+                        "multi-select",
+                        "single-entity-select",
+                        "multi-entity-select",
+                        "color-picker",
+                        "media-selection",
+                        "price"
+                    ]
+                },
+                "label": { "$ref": "#/definitions/translatedString" },
+                "helpText": { "$ref": "#/definitions/translatedString" },
+                "placeholder": { "$ref": "#/definitions/translatedString" },
+                "position": { "type": "integer", "default": 1 },
+                "active": { "type": "boolean", "default": true },
+                "required": { "type": "boolean", "default": false },
+                "allowCustomerWrite": { "type": "boolean", "default": false },
+                "allowCartExpose": { "type": "boolean", "default": false },
+                "includeInSearch": { "type": "boolean", "default": false },
+                "min": { "type": "number" },
+                "max": { "type": "number" },
+                "step": { "type": "number", "exclusiveMinimum": 0 },
+                "options": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "propertyNames": { "type": "string", "minLength": 1 },
+                    "additionalProperties": { "$ref": "#/definitions/option" }
+                },
+                "entity": { "$ref": "#/definitions/technicalName" },
+                "labelProperty": { "type": "string", "minLength": 1 }
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "type": { "enum": ["single-select", "multi-select"] }
+                        }
+                    },
+                    "then": { "required": ["options"] }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": { "enum": ["single-entity-select", "multi-entity-select"] }
+                        }
+                    },
+                    "then": { "required": ["entity"] }
+                }
+            ]
+        }
+    }
+}

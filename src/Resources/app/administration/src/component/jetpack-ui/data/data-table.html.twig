@@ -1,0 +1,107 @@
+{% block jetpack_data_table %}
+<div
+    v-bind="$attrs"
+    class="jetpack-data-table"
+>
+    <div class="jetpack-data-table__scroll">
+        <table class="jetpack-data-table__table">
+            <thead>
+                <tr>
+                    <th
+                        v-if="selectable"
+                        class="jetpack-data-table__selection"
+                        scope="col"
+                    >
+                        <input
+                            type="checkbox"
+                            :checked="allSelected"
+                            :aria-label="allSelected ? 'Deselect all rows' : 'Select all rows'"
+                            @change="toggleAll"
+                        >
+                    </th>
+                    <th
+                        v-for="column in columns"
+                        :key="column.property"
+                        scope="col"
+                        :class="`jetpack-data-table__cell--${column.align || 'start'}`"
+                    >
+                        <button
+                            v-if="column.sortable"
+                            class="jetpack-data-table__sort"
+                            type="button"
+                            @click="sort(column.property)"
+                        >
+                            {{ column.label }}
+                            <jetpack-icon
+                                v-if="sortBy === column.property"
+                                :name="sortDirection === 'asc' ? 'chevron-up' : 'chevron-down'"
+                                :size="14"
+                            />
+                        </button>
+                        <span v-else>{{ column.label }}</span>
+                    </th>
+                    <th
+                        v-if="$slots.actions"
+                        class="jetpack-data-table__actions-column"
+                        scope="col"
+                    ><span class="jetpack-data-table__visually-hidden">Actions</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    v-for="(item, index) in items"
+                    :key="String(item[itemKey] ?? index)"
+                    :class="{ 'jetpack-data-table__row--selected': isSelected(item) }"
+                    @click="$emit('row-click', item)"
+                >
+                    <td
+                        v-if="selectable"
+                        class="jetpack-data-table__selection"
+                        @click.stop
+                    >
+                        <input
+                            type="checkbox"
+                            :checked="isSelected(item)"
+                            :aria-label="`Select row ${index + 1}`"
+                            @change="toggle(item)"
+                        >
+                    </td>
+                    <td
+                        v-for="column in columns"
+                        :key="column.property"
+                        :class="`jetpack-data-table__cell--${column.align || 'start'}`"
+                    >
+                        <slot
+                            :name="`column-${column.property}`"
+                            :item="item"
+                            :value="value(item, column.property)"
+                            :column="column"
+                        >{{ value(item, column.property) }}</slot>
+                    </td>
+                    <td
+                        v-if="$slots.actions"
+                        class="jetpack-data-table__actions-cell"
+                        @click.stop
+                    ><slot
+                        name="actions"
+                        :item="item"
+                    ></slot></td>
+                </tr>
+                <tr v-if="items.length === 0">
+                    <td
+                        class="jetpack-data-table__empty"
+                        :colspan="columns.length + (selectable ? 1 : 0) + ($slots.actions ? 1 : 0)"
+                    ><slot name="empty">
+                        {{ emptyText }}
+                    </slot></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <jetpack-loader
+        v-if="loading"
+        class="jetpack-data-table__loader"
+        :label="loadingText"
+    />
+</div>
+{% endblock %}

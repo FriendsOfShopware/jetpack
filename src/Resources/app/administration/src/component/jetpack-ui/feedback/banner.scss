@@ -1,0 +1,48 @@
+.jetpack-banner {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    color: var(--jetpack-color-info);
+    background: var(--jetpack-color-info-soft);
+    border: 1px solid currentcolor;
+    border-radius: var(--jetpack-radius);
+}
+
+.jetpack-banner--positive {
+    color: var(--jetpack-color-positive);
+    background: var(--jetpack-color-positive-soft);
+}
+
+.jetpack-banner--warning {
+    color: var(--jetpack-color-warning);
+    background: var(--jetpack-color-warning-soft);
+}
+
+.jetpack-banner--critical {
+    color: var(--jetpack-color-critical);
+    background: var(--jetpack-color-critical-soft);
+}
+
+.jetpack-banner__content {
+    flex: 1;
+}
+
+.jetpack-banner__title {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.jetpack-banner__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.jetpack-banner__dismiss {
+    padding: 2px;
+    color: inherit;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}

@@ -1,0 +1,26 @@
+{
+    "name": "@frosh/jetpack-administration",
+    "private": true,
+    "scripts": {
+        "test": "../../../../../../../src/Administration/Resources/app/administration/node_modules/.bin/jest --config jest.config.cjs --runInBand",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "storybook": "storybook dev -p 6007",
+        "storybook:build": "storybook build --output-dir storybook-static",
+        "storybook:typecheck": "tsc -p tsconfig.storybook.json --noEmit"
+    },
+    "devDependencies": {
+        "@storybook/addon-docs": "10.4.0",
+        "@storybook/vue3-vite": "10.4.0",
+        "@vitejs/plugin-vue": "5.2.1",
+        "sass": "1.77.6",
+        "storybook": "10.4.0",
+        "typescript": "5.7.3",
+        "vite": "6.4.3",
+        "vue": "3.5.22"
+    },
+    "overrides": {
+        "storybook": {
+            "esbuild": "0.28.1"
+        }
+    }
+}

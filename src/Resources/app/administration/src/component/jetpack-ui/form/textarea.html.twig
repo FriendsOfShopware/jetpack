@@ -1,0 +1,30 @@
+{% block jetpack_textarea %}
+<jetpack-field-shell
+    :id="id"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :required="required"
+    :disabled="disabled"
+>
+    <template #control="{ controlId, describedBy }">
+        <textarea
+            :id="controlId"
+            v-bind="$attrs"
+            class="jetpack-textarea__control"
+            :value="modelValue"
+            :placeholder="placeholder"
+            :rows="rows"
+            :disabled="disabled"
+            :readonly="readonly"
+            :required="required"
+            :aria-describedby="describedBy"
+            :aria-invalid="Boolean(error) || undefined"
+            @input="$emit('update:modelValue', $event.target.value)"
+            @change="$emit('change', $event.target.value)"
+            @blur="$emit('blur', $event)"
+            @focus="$emit('focus', $event)"
+        ></textarea>
+    </template>
+</jetpack-field-shell>
+{% endblock %}

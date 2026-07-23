@@ -1,0 +1,77 @@
+{% block jetpack_chart %}
+<figure
+    v-bind="$attrs"
+    class="jetpack-chart"
+>
+    <figcaption
+        v-if="title"
+        class="jetpack-chart__title"
+    >{{ title }}</figcaption>
+    <svg
+        class="jetpack-chart__canvas"
+        viewBox="0 0 600 260"
+        role="img"
+        :aria-label="ariaLabel || title || 'Chart'"
+    >
+        <line
+            class="jetpack-chart__axis"
+            x1="40"
+            y1="220"
+            x2="580"
+            y2="220"
+        />
+        <line
+            class="jetpack-chart__axis"
+            x1="40"
+            y1="20"
+            x2="40"
+            y2="220"
+        />
+        <template v-if="type === 'bar'">
+            <g
+                v-for="(point, index) in points"
+                :key="point.label"
+            >
+                <rect
+                    class="jetpack-chart__bar"
+                    :x="barX(index)"
+                    :y="pointY(point.value)"
+                    :width="barWidth"
+                    :height="220 - pointY(point.value)"
+                    rx="3"
+                ><title>{{ point.label }}: {{ point.value }}</title></rect>
+                <text
+                    class="jetpack-chart__label"
+                    :x="barX(index) + barWidth / 2"
+                    y="242"
+                    text-anchor="middle"
+                >{{ point.label }}</text>
+            </g>
+        </template>
+        <template v-else>
+            <polyline
+                class="jetpack-chart__line"
+                :points="linePoints"
+                fill="none"
+            />
+            <g
+                v-for="(point, index) in points"
+                :key="point.label"
+            >
+                <circle
+                    class="jetpack-chart__point"
+                    :cx="pointX(index)"
+                    :cy="pointY(point.value)"
+                    r="5"
+                ><title>{{ point.label }}: {{ point.value }}</title></circle>
+                <text
+                    class="jetpack-chart__label"
+                    :x="pointX(index)"
+                    y="242"
+                    text-anchor="middle"
+                >{{ point.label }}</text>
+            </g>
+        </template>
+    </svg>
+</figure>
+{% endblock %}

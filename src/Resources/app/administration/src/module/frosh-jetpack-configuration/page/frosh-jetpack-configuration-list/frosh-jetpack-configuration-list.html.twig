@@ -1,0 +1,34 @@
+{% block frosh_jetpack_configuration_list %}
+<sw-page class="frosh-jetpack-configuration-list">
+    <template #smart-bar-header>
+        <h2>{{ $t('frosh-jetpack-configuration.general.title') }}</h2>
+    </template>
+
+    <template #content>
+        <div class="frosh-jetpack-configuration-list__content">
+            <jetpack-loader v-if="isLoading" />
+
+            <jetpack-empty-state
+                v-else-if="bundles.length === 0"
+                :title="$t('frosh-jetpack-configuration.list.empty')"
+                icon="info"
+            />
+
+            <template v-else>
+                <jetpack-card
+                    v-for="bundle in bundles"
+                    :key="bundle.name"
+                    :title="translate(bundle.label)"
+                    :data-position-identifier="`frosh-jetpack-configuration-list-${bundle.name}`"
+                >
+                    <jetpack-link
+                        :to="{ name: 'frosh.jetpack.configuration.detail', params: { bundle: bundle.name } }"
+                    >
+                        {{ $t('frosh-jetpack-configuration.list.open') }}
+                    </jetpack-link>
+                </jetpack-card>
+            </template>
+        </div>
+    </template>
+</sw-page>
+{% endblock %}

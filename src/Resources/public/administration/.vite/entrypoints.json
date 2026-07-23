@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/froshjetpack/administration/",
+  "entryPoints": {
+    "frosh-jetpack": {
+      "css": [],
+      "dynamic": [
+        "/bundles/froshjetpack/administration/assets/bootstrap-Dty1ZK0f.js"
+      ],
+      "js": [
+        "/bundles/froshjetpack/administration/assets/frosh-jetpack-weg-dpvU.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}

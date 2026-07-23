@@ -1,0 +1,47 @@
+{% block jetpack_action_menu %}
+<jetpack-popover
+    v-model="open"
+    :position="position"
+>
+    <template #trigger="{ toggle }">
+        <slot
+            name="trigger"
+            :open="open"
+            :toggle="toggle"
+        >
+            <jetpack-button
+                variant="tertiary"
+                square
+                :aria-label="ariaLabel"
+                @click="toggle"
+            ><jetpack-icon name="more" /></jetpack-button>
+        </slot>
+    </template>
+    <ul
+        class="jetpack-action-menu"
+        role="menu"
+    >
+        <li
+            v-for="item in items"
+            :key="item.id"
+            role="none"
+        >
+            <button
+                class="jetpack-action-menu__item"
+                :class="{ 'jetpack-action-menu__item--critical': item.critical }"
+                type="button"
+                role="menuitem"
+                :disabled="item.disabled"
+                @click="select(item)"
+            >
+                <jetpack-icon
+                    v-if="item.icon"
+                    :name="item.icon"
+                    :size="16"
+                />
+                {{ item.label }}
+            </button>
+        </li>
+    </ul>
+</jetpack-popover>
+{% endblock %}

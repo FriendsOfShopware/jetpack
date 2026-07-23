@@ -1,0 +1,23 @@
+{
+  "extends": "../../../../../../../src/Administration/Resources/app/administration/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@vue/test-utils": ["node_modules/@vue/test-utils"]
+    },
+    "types": ["jest", "node"],
+    "typeRoots": [
+      "../../../../../../../src/Administration/Resources/app/administration/node_modules/@types"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "../../../../../../../src/Administration/Resources/app/administration/src/global.types.ts",
+    "../../../../../../../src/Administration/Resources/app/administration/src/html-shim.d.ts",
+    "../../../../../../../src/Administration/Resources/app/administration/src/entity-schema-definition.d.ts",
+    "../../../../../../../src/Administration/Resources/app/administration/src/module/sw-flow/service/index.ts",
+    "../../../../../../../src/Administration/Resources/app/administration/node_modules/vite/client.d.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": ["node_modules"],
+  "files": []
+}

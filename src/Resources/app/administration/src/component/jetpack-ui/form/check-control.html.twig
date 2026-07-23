@@ -1,0 +1,41 @@
+{% block jetpack_check_control %}
+<div
+    class="jetpack-check-control"
+    :class="[
+        `jetpack-check-control--${appearance}`,
+        { 'jetpack-check-control--disabled': disabled },
+    ]"
+>
+    <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -->
+    <label class="jetpack-check-control__label">
+        <input
+            v-bind="$attrs"
+            class="jetpack-check-control__input"
+            type="checkbox"
+            :checked="modelValue"
+            :disabled="disabled"
+            :required="required"
+            :aria-describedby="helpText ? `${controlId}-help` : undefined"
+            @change="onChange"
+        >
+        <span
+            class="jetpack-check-control__indicator"
+            aria-hidden="true"
+        >
+            <jetpack-icon
+                v-if="appearance === 'checkbox' && modelValue"
+                name="check"
+                :size="14"
+            />
+        </span>
+        <span class="jetpack-check-control__content">
+            <span class="jetpack-check-control__text"><slot>{{ label }}</slot></span>
+            <span
+                v-if="helpText"
+                :id="`${controlId}-help`"
+                class="jetpack-check-control__help"
+            >{{ helpText }}</span>
+        </span>
+    </label>
+</div>
+{% endblock %}

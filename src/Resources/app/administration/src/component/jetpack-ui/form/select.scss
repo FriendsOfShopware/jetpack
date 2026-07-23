@@ -1,0 +1,20 @@
+.jetpack-select__control {
+    width: 100%;
+    height: var(--jetpack-control-height);
+    padding: 0 36px 0 12px;
+    color: var(--jetpack-color-text);
+    font: inherit;
+    appearance: none;
+    background:
+        var(--jetpack-color-surface)
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23526976' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+        no-repeat right 12px center;
+    border: 1px solid var(--jetpack-color-border);
+    border-radius: var(--jetpack-radius-control);
+    outline: 0;
+
+    &:focus {
+        border-color: var(--jetpack-color-primary);
+        box-shadow: var(--jetpack-focus-ring);
+    }
+}

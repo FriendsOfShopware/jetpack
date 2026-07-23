@@ -1,0 +1,25 @@
+{% block jetpack_entity_multi_select %}
+<jetpack-multi-select
+    v-bind="$attrs"
+    :model-value="selectedValues"
+    :options="entityOptions"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :placeholder="placeholder"
+    :search-placeholder="searchPlaceholder"
+    :empty-text="loading ? loadingText : emptyText"
+    :disabled="disabled || loading"
+    :required="required"
+    @update:model-value="updateSelection"
+    @search="search"
+>
+    <template
+        v-for="(_, name) in $slots"
+        #[name]="slotData"
+    ><slot
+        :name="name"
+        v-bind="slotData || {}"
+    ></slot></template>
+</jetpack-multi-select>
+{% endblock %}

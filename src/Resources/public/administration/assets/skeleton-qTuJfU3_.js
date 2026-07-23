@@ -1,0 +1,2 @@
+const e='{% block jetpack_skeleton %} <span v-bind="$attrs" class="jetpack-skeleton" :class="[`jetpack-skeleton--${variant}`, `jetpack-skeleton--${size}`]" aria-hidden="true" ></span> {% endblock %}',t=Shopware.Component.wrapComponentConfig({template:e,inheritAttrs:!1,props:{variant:{type:String,required:!1,default:"text"},size:{type:String,required:!1,default:"default"}}});export{t as default};
+//# sourceMappingURL=skeleton-qTuJfU3_.js.map

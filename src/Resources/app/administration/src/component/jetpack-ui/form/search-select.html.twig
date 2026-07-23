@@ -1,0 +1,112 @@
+{% block jetpack_search_select %}
+<jetpack-field-shell
+    :id="id"
+    :label="label"
+    :help-text="helpText"
+    :error="error"
+    :required="required"
+    :disabled="disabled"
+>
+    <template #control="{ controlId, describedBy }">
+        <div
+            :id="controlId"
+            ref="root"
+            class="jetpack-search-select"
+            :class="{ 'jetpack-search-select--open': open }"
+        >
+            <button
+                v-bind="$attrs"
+                class="jetpack-search-select__trigger"
+                type="button"
+                :disabled="disabled"
+                :aria-expanded="open"
+                :aria-controls="`${controlId}-options`"
+                :aria-describedby="describedBy"
+                :aria-invalid="Boolean(error) || undefined"
+                @click="open = !open"
+                @keydown.esc="open = false"
+            >
+                <span
+                    v-if="selectedOptions.length === 0"
+                    class="jetpack-search-select__placeholder"
+                >{{ placeholder }}</span>
+                <span
+                    v-else
+                    class="jetpack-search-select__selection"
+                >
+                    <span
+                        v-for="option in selectedOptions"
+                        :key="String(option.value)"
+                        class="jetpack-search-select__token"
+                    >
+                        {{ option.label }}
+                        <span
+                            v-if="multiple"
+                            class="jetpack-search-select__token-remove"
+                            role="button"
+                            tabindex="0"
+                            :aria-label="`Remove ${option.label}`"
+                            @click.stop="remove(option.value)"
+                            @keydown.enter.stop="remove(option.value)"
+                        >×</span>
+                    </span>
+                </span>
+                <jetpack-icon
+                    name="chevron-down"
+                    :size="16"
+                />
+            </button>
+            <div
+                v-if="open"
+                :id="`${controlId}-options`"
+                class="jetpack-search-select__popover"
+            >
+                <div class="jetpack-search-select__search">
+                    <jetpack-icon
+                        name="search"
+                        :size="16"
+                    />
+                    <input
+                        v-model="searchTerm"
+                        class="jetpack-search-select__search-input"
+                        type="search"
+                        :placeholder="searchPlaceholder"
+                        aria-label="Search options"
+                        @input="$emit('search', searchTerm)"
+                    >
+                </div>
+                <ul
+                    class="jetpack-search-select__options"
+                    role="listbox"
+                    :aria-multiselectable="multiple || undefined"
+                >
+                    <li
+                        v-for="option in filteredOptions"
+                        :key="String(option.value)"
+                    >
+                        <button
+                            class="jetpack-search-select__option"
+                            type="button"
+                            role="option"
+                            :disabled="option.disabled"
+                            :aria-selected="isSelected(option.value)"
+                            @click="toggle(option.value)"
+                        >
+                            <span>{{ option.label }}</span>
+                            <jetpack-icon
+                                v-if="isSelected(option.value)"
+                                name="check"
+                                :size="16"
+                            />
+                        </button>
+                    </li>
+                    <li
+                        v-if="filteredOptions.length === 0"
+                        class="jetpack-search-select__empty"
+                    >{{ emptyText }}</li>
+                </ul>
+            </div>
+        </div>
+    </template>
+</jetpack-field-shell>
+{% endblock %}

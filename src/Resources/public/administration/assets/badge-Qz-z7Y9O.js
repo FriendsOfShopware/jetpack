@@ -1,0 +1,2 @@
+const e='{% block jetpack_badge %} <span v-bind="$attrs" class="jetpack-badge" :class="[`jetpack-badge--${variant}`, `jetpack-badge--${size}`]" ><slot></slot></span> {% endblock %}',a=Shopware.Component.wrapComponentConfig({template:e,inheritAttrs:!1,props:{variant:{type:String,required:!1,default:"neutral"},size:{type:String,required:!1,default:"default"}}});export{a as default};
+//# sourceMappingURL=badge-Qz-z7Y9O.js.map

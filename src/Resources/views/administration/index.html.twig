@@ -1,0 +1,31 @@
+{% sw_extends '@Administration/administration/index.html.twig' %}
+
+{% block administration_templates %}
+    {{ parent() }}
+
+    {% if not frosh_jetpack_uses_vite_administration() %}
+        {% include '@FroshJetpack/administration/entry.html.twig' with { patchClassicApplication: true, cspNonce: cspNonce } only %}
+    {% endif %}
+{% endblock %}
+
+{% block administration_login_scripts %}
+    {{ parent() }}
+
+    {% if frosh_jetpack_uses_vite_administration() %}
+        {% include '@FroshJetpack/administration/entry.html.twig' with { patchClassicApplication: false, cspNonce: cspNonce } only %}
+    {% endif %}
+{% endblock %}
+
+{% block administration_content %}
+    {{ parent() }}
+
+    {% if frosh_jetpack_uses_vite_administration() %}
+        <script nonce="{{ cspNonce }}">
+            (() => {
+                const entry = globalThis[Symbol.for('frosh.jetpack.administration.entry')];
+                const originalStart = window.startApplication;
+                window.startApplication = (...args) => entry.ready.then(() => originalStart(...args));
+            })();
+        </script>
+    {% endif %}
+{% endblock %}

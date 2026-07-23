@@ -1,0 +1,29 @@
+.frosh-jetpack-configuration-detail {
+    &__content {
+        display: grid;
+        gap: 24px;
+        width: min(960px, calc(100% - 48px));
+        padding: 32px 0;
+        margin: 0 auto;
+    }
+
+    &__field {
+        display: grid;
+        gap: 12px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--jetpack-color-border-soft);
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        > small {
+            color: var(--jetpack-color-text-muted);
+        }
+    }
+
+    .jetpack-tabs__panel {
+        display: grid;
+        gap: 24px;
+    }
+}

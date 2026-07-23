@@ -1,0 +1,12 @@
+version: 1
+tabs:
+  general:
+    label: { en-GB: General }
+    sections:
+      behavior:
+        label: { en-GB: Behavior }
+        fields:
+          mode:
+            type: single-select
+            default: safe
+            label: { en-GB: Mode }

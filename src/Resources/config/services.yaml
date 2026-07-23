@@ -1,0 +1,332 @@
+services:
+    Frosh\Jetpack\Administration\AdministrationAssetMode:
+        arguments:
+            - '%kernel.shopware_version%'
+        tags:
+            - { name: twig.extension }
+
+    Frosh\Jetpack\Configuration\BundleConfigurationLocator:
+        arguments:
+            - '@kernel'
+
+    Frosh\Jetpack\Configuration\ValueTypeValidator: ~
+
+    Frosh\Jetpack\Configuration\YamlConfigurationLoader:
+        arguments:
+            - '@Frosh\Jetpack\Configuration\ValueTypeValidator'
+
+    Frosh\Jetpack\Configuration\ConfigurationDefinitionRegistry:
+        arguments:
+            - '@Frosh\Jetpack\Configuration\BundleConfigurationLocator'
+            - '@Frosh\Jetpack\Configuration\YamlConfigurationLoader'
+
+    Frosh\Jetpack\Configuration\DbalConfigurationStore:
+        arguments:
+            - '@Doctrine\DBAL\Connection'
+            - '@Psr\Clock\ClockInterface'
+
+    Frosh\Jetpack\Configuration\ConfigurationStore:
+        alias: Frosh\Jetpack\Configuration\DbalConfigurationStore
+
+    Frosh\Jetpack\Configuration\ConfigurationValueResolver: ~
+    Frosh\Jetpack\Configuration\DtoHydrator: ~
+
+    Frosh\Jetpack\Configuration\DefaultConfigurationService:
+        arguments:
+            - '@Frosh\Jetpack\Configuration\ConfigurationDefinitionRegistry'
+            - '@Frosh\Jetpack\Configuration\ConfigurationStore'
+            - '@Frosh\Jetpack\Configuration\ConfigurationValueResolver'
+            - '@Frosh\Jetpack\Configuration\DtoHydrator'
+        tags:
+            - { name: kernel.reset, method: reset }
+
+    Frosh\Jetpack\Configuration\ConfigurationService:
+        alias: Frosh\Jetpack\Configuration\DefaultConfigurationService
+        public: true
+
+    Frosh\Jetpack\Configuration\ConfigurationWriteService:
+        arguments:
+            - '@Frosh\Jetpack\Configuration\ConfigurationDefinitionRegistry'
+            - '@Frosh\Jetpack\Configuration\ConfigurationStore'
+            - '@Frosh\Jetpack\Configuration\ValueTypeValidator'
+            - '@Frosh\Jetpack\Configuration\DefaultConfigurationService'
+
+    Frosh\Jetpack\Configuration\ConfigurationAdminReader:
+        arguments:
+            - '@Frosh\Jetpack\Configuration\ConfigurationDefinitionRegistry'
+            - '@Frosh\Jetpack\Configuration\ConfigurationStore'
+            - '@Frosh\Jetpack\Configuration\ConfigurationValueResolver'
+
+    Frosh\Jetpack\Migration\FilesystemMigrationProvider: ~
+
+    Frosh\Jetpack\Migration\MigrationProvider:
+        alias: Frosh\Jetpack\Migration\FilesystemMigrationProvider
+
+    Frosh\Jetpack\Migration\DbalMigrationStateStore:
+        arguments:
+            - '@Doctrine\DBAL\Connection'
+
+    Frosh\Jetpack\Migration\MigrationStateStore:
+        alias: Frosh\Jetpack\Migration\DbalMigrationStateStore
+
+    Frosh\Jetpack\Migration\DbalMigrationLock:
+        arguments:
+            - '@Doctrine\DBAL\Connection'
+
+    Frosh\Jetpack\Migration\MigrationLock:
+        alias: Frosh\Jetpack\Migration\DbalMigrationLock
+
+    Frosh\Jetpack\Migration\DefaultMigrationRunner:
+        arguments:
+            - '@Frosh\Jetpack\Migration\MigrationProvider'
+            - '@Frosh\Jetpack\Migration\MigrationStateStore'
+            - '@Frosh\Jetpack\Migration\MigrationLock'
+            - '@Doctrine\DBAL\Connection'
+
+    Frosh\Jetpack\Migration\MigrationRunner:
+        alias: Frosh\Jetpack\Migration\DefaultMigrationRunner
+        public: true
+
+    Frosh\Jetpack\Migration\MigrationLifecycleSubscriber:
+        arguments:
+            - '@Frosh\Jetpack\Migration\MigrationRunner'
+            - '@Frosh\Jetpack\Migration\MigrationProvider'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Frosh\Jetpack\CustomField\YamlCustomFieldLoader: ~
+    Frosh\Jetpack\CustomField\CustomFieldPayloadCompiler: ~
+
+    Frosh\Jetpack\CustomField\DbalCustomFieldSetStore:
+        arguments:
+            - '@Doctrine\DBAL\Connection'
+            - '@custom_field_set.repository'
+            - '@custom_field_set_relation.repository'
+            - '@custom_field.repository'
+
+    Frosh\Jetpack\CustomField\CustomFieldSetStore:
+        alias: Frosh\Jetpack\CustomField\DbalCustomFieldSetStore
+
+    Frosh\Jetpack\CustomField\CustomFieldSynchronizer:
+        arguments:
+            - '@Frosh\Jetpack\CustomField\YamlCustomFieldLoader'
+            - '@Frosh\Jetpack\CustomField\CustomFieldPayloadCompiler'
+            - '@Frosh\Jetpack\CustomField\CustomFieldSetStore'
+
+    Frosh\Jetpack\CustomField\CustomFieldLifecycleSubscriber:
+        arguments:
+            - '@Frosh\Jetpack\CustomField\CustomFieldSynchronizer'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Frosh\Jetpack\MailTemplate\YamlMailTemplateLoader:
+        arguments:
+            - '@twig'
+            - '@Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry'
+
+    Frosh\Jetpack\MailTemplate\MailTemplateHasher: ~
+
+    Frosh\Jetpack\MailTemplate\MailTemplatePayloadCompiler:
+        arguments:
+            - '@Frosh\Jetpack\MailTemplate\MailTemplateHasher'
+
+    Frosh\Jetpack\MailTemplate\DbalMailTemplateStore:
+        arguments:
+            - '@Doctrine\DBAL\Connection'
+            - '@mail_template_type.repository'
+            - '@mail_template.repository'
+            - '@mail_template_type_translation.repository'
+            - '@mail_template_translation.repository'
+            - '@Frosh\Jetpack\MailTemplate\MailTemplateHasher'
+
+    Frosh\Jetpack\MailTemplate\MailTemplateStore:
+        alias: Frosh\Jetpack\MailTemplate\DbalMailTemplateStore
+
+    Frosh\Jetpack\MailTemplate\MailTemplateSynchronizer:
+        arguments:
+            - '@Frosh\Jetpack\MailTemplate\YamlMailTemplateLoader'
+            - '@Frosh\Jetpack\MailTemplate\MailTemplatePayloadCompiler'
+            - '@Frosh\Jetpack\MailTemplate\MailTemplateHasher'
+            - '@Frosh\Jetpack\MailTemplate\MailTemplateStore'
+            - '@logger'
+
+    Frosh\Jetpack\MailTemplate\MailTemplateLifecycleSubscriber:
+        arguments:
+            - '@Frosh\Jetpack\MailTemplate\MailTemplateSynchronizer'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Frosh\Jetpack\MailTemplate\MailTemplateLanguageSubscriber:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\MailTemplate\MailTemplateSynchronizer'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Frosh\Jetpack\MailTemplate\DefaultMailTemplateRegistry:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\MailTemplate\MailTemplateStore'
+
+    Frosh\Jetpack\MailTemplate\MailTemplateRegistry:
+        alias: Frosh\Jetpack\MailTemplate\DefaultMailTemplateRegistry
+        public: true
+
+    Frosh\Jetpack\Api\ConfigurationController:
+        public: true
+        arguments:
+            - '@Frosh\Jetpack\Configuration\ConfigurationAdminReader'
+            - '@Frosh\Jetpack\Configuration\ConfigurationWriteService'
+        tags:
+            - { name: controller.service_arguments }
+
+    frosh.jetpack.filesystem:
+        class: Symfony\Component\Filesystem\Filesystem
+
+    Frosh\Jetpack\Scaffolding\StubRenderer: ~
+
+    Frosh\Jetpack\Scaffolding\ScaffoldWriter:
+        arguments:
+            - '@frosh.jetpack.filesystem'
+
+    Frosh\Jetpack\Scaffolding\Generator\EntityScaffolder:
+        arguments:
+            - '@Frosh\Jetpack\Scaffolding\StubRenderer'
+
+    Frosh\Jetpack\Scaffolding\Generator\MigrationScaffolder:
+        arguments:
+            - '@Frosh\Jetpack\Scaffolding\StubRenderer'
+
+    Frosh\Jetpack\Scaffolding\Generator\ScheduledTaskScaffolder:
+        arguments:
+            - '@Frosh\Jetpack\Scaffolding\StubRenderer'
+
+    Frosh\Jetpack\Scaffolding\Generator\CommandScaffolder:
+        arguments:
+            - '@Frosh\Jetpack\Scaffolding\StubRenderer'
+
+    Frosh\Jetpack\Entity\BundleResolver:
+        arguments:
+            - '@kernel'
+
+    Frosh\Jetpack\Entity\BundleEntitySchemaProvider:
+        arguments:
+            - !tagged_iterator frosh.jetpack.entity_definition
+
+    Frosh\Jetpack\Entity\FieldSerializer\BackedEnumFieldSerializer:
+        arguments:
+            - '@validator'
+            - '@Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry'
+        tags:
+            - { name: shopware.field_serializer }
+
+    Frosh\Jetpack\Entity\Snapshot\SchemaSnapshotStore:
+        arguments:
+            - '@frosh.jetpack.filesystem'
+
+    Frosh\Jetpack\Entity\Migration\SchemaDiffer: ~
+    Frosh\Jetpack\Entity\Migration\MigrationPlanInverter: ~
+    Frosh\Jetpack\Entity\Migration\DefinitionNameResolver: ~
+
+    Frosh\Jetpack\Entity\Migration\MySqlSchemaRenderer:
+        arguments:
+            - '@Frosh\Jetpack\Entity\Migration\DefinitionNameResolver'
+
+    Frosh\Jetpack\Entity\Migration\MigrationStepRenderer:
+        arguments:
+            - '@Frosh\Jetpack\Entity\Migration\MySqlSchemaRenderer'
+
+    Frosh\Jetpack\Entity\Migration\EntityMigrationCoordinator:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleEntitySchemaProvider'
+            - '@Frosh\Jetpack\Entity\Snapshot\SchemaSnapshotStore'
+            - '@Frosh\Jetpack\Entity\Migration\SchemaDiffer'
+            - '@Frosh\Jetpack\Entity\Migration\MigrationPlanInverter'
+            - '@Frosh\Jetpack\Entity\Migration\MigrationStepRenderer'
+            - '@frosh.jetpack.filesystem'
+
+    Frosh\Jetpack\ScheduledTask\ScheduledTaskRegistry:
+        arguments:
+            - !tagged_iterator frosh.jetpack.scheduled_task
+
+    Frosh\Jetpack\Command\ValidateCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Configuration\ConfigurationDefinitionRegistry'
+            - '@Frosh\Jetpack\CustomField\YamlCustomFieldLoader'
+            - '@Frosh\Jetpack\MailTemplate\YamlMailTemplateLoader'
+            - '@Frosh\Jetpack\Entity\BundleEntitySchemaProvider'
+            - '@Frosh\Jetpack\Migration\MigrationProvider'
+            - '@Frosh\Jetpack\ScheduledTask\ScheduledTaskRegistry'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\MigrateCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Migration\MigrationRunner'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\DiffEntitySchemaCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Entity\Migration\EntityMigrationCoordinator'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\GenerateEntityMigrationCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Entity\Migration\EntityMigrationCoordinator'
+            - '@Psr\Clock\ClockInterface'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\CheckEntitySchemaCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Entity\Migration\EntityMigrationCoordinator'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\BaselineEntitySchemaCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Entity\Migration\EntityMigrationCoordinator'
+            - '@Psr\Clock\ClockInterface'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\MakeEntityCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Scaffolding\ScaffoldWriter'
+            - '@Frosh\Jetpack\Scaffolding\Generator\EntityScaffolder'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\MakeMigrationCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Scaffolding\ScaffoldWriter'
+            - '@Frosh\Jetpack\Scaffolding\Generator\MigrationScaffolder'
+            - '@Psr\Clock\ClockInterface'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\MakeScheduledTaskCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Scaffolding\ScaffoldWriter'
+            - '@Frosh\Jetpack\Scaffolding\Generator\ScheduledTaskScaffolder'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\MakeConsoleCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Scaffolding\ScaffoldWriter'
+            - '@Frosh\Jetpack\Scaffolding\Generator\CommandScaffolder'
+        tags:
+            - { name: console.command }

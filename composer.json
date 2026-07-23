@@ -1,0 +1,46 @@
+{
+    "name": "frosh/jetpack",
+    "description": "Developer-friendly configuration, DAL entities, migrations, declarative resources, and stable Administration UI for Shopware extensions",
+    "type": "shopware-platform-plugin",
+    "version": "0.3.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Friends of Shopware"
+        }
+    ],
+    "require": {
+        "php": ">=8.2 <8.6",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "doctrine/dbal": "^3.9 || ^4.0",
+        "opis/json-schema": "^2.4",
+        "psr/clock": "^1.0",
+        "shopware/core": ">=6.6 <6.8",
+        "symfony/yaml": "^6.4 || ^7.0",
+        "twig/twig": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Frosh\\Jetpack\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Frosh\\Jetpack\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5 || ^11.0"
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "shopware-plugin-class": "Frosh\\Jetpack\\FroshJetpack",
+        "label": {
+            "en-GB": "Frosh Jetpack",
+            "de-DE": "Frosh Jetpack"
+        }
+    }
+}

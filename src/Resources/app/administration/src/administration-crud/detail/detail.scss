@@ -1,0 +1,18 @@
+.frosh-jetpack-crud-detail {
+    &__content {
+        display: grid;
+        gap: var(--jetpack-space-5);
+        max-width: 960px;
+        padding: var(--jetpack-space-6);
+        margin: 0 auto;
+    }
+
+    &__fields {
+        display: grid;
+        gap: var(--jetpack-space-4);
+    }
+
+    &__language {
+        width: 240px;
+    }
+}

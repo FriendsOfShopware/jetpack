@@ -1,0 +1,10 @@
+version: 1
+default-locale: en-GB
+templates:
+  acme_invalid_mail:
+    available-entities:
+      missing: unknown_entity
+    translations:
+      en-GB:
+        name: Invalid mail
+        subject: Invalid mail

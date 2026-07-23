@@ -1,0 +1,29 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Frosh Jetpack Administration components
+
+This Storybook renders the real `jetpack-*` source components with the same Vue 3 contracts used in
+Shopware 6.6 and 6.7.
+
+- Change props in the Controls panel.
+- Use the Canvas tab to exercise native focus, keyboard, selection, modal, and menu behavior.
+- Use the Docs tab for story descriptions and generated argument tables.
+- Check the Overview story in every category to compare related components together.
+
+The Storybook bootstrap replaces only stable Shopware integration boundaries such as component
+registration, Criteria, and repository fixtures. It does not load or imitate Meteor or `sw-*` visual
+components.
+
+Run it from the FroshJetpack Administration directory:
+
+```bash
+npm run storybook
+```
+
+Create a production-static viewer with:
+
+```bash
+npm run storybook:build
+```

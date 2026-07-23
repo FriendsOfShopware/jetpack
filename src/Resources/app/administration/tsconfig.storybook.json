@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noImplicitAny": false,
+    "types": ["node"]
+  },
+  "include": [
+    ".storybook/**/*.ts",
+    ".storybook/**/*.d.ts",
+    "stories/**/*.ts",
+    "src/component/jetpack-ui/**/*.ts",
+    "../../../../../../../src/Administration/Resources/app/administration/src/html-shim.d.ts",
+    "../../../../../../../src/Administration/Resources/app/administration/node_modules/vite/client.d.ts"
+  ],
+  "exclude": ["node_modules", "storybook-static", "src/**/*.spec.ts"],
+  "files": []
+}

@@ -1,0 +1,42 @@
+{% block jetpack_card %}
+<section
+    v-bind="$attrs"
+    class="jetpack-card"
+    :class="{ 'jetpack-card--compact': compact }"
+>
+    {% block jetpack_card_header %}
+    <header
+        v-if="title || subtitle || $slots.header || $slots.actions"
+        class="jetpack-card__header"
+    >
+        <slot name="header">
+            <div>
+                <h3
+                    v-if="title"
+                    class="jetpack-card__title"
+                >{{ title }}</h3>
+                <p
+                    v-if="subtitle"
+                    class="jetpack-card__subtitle"
+                >{{ subtitle }}</p>
+            </div>
+        </slot>
+        <div
+            v-if="$slots.actions"
+            class="jetpack-card__actions"
+        ><slot name="actions"></slot></div>
+    </header>
+    {% endblock %}
+    {% block jetpack_card_content %}
+    <div class="jetpack-card__content">
+        <slot></slot>
+    </div>
+    {% endblock %}
+    {% block jetpack_card_footer %}
+    <footer
+        v-if="$slots.footer"
+        class="jetpack-card__footer"
+    ><slot name="footer"></slot></footer>
+    {% endblock %}
+</section>
+{% endblock %}
