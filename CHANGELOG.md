@@ -34,6 +34,10 @@
   actions, and detail actions, independent of plugin registration order.
 - Add translated repository contexts, Shopware 6.6/6.7 DAL property-error adapters, bulk deletion,
   ACL-aware actions, and specialized field/cell renderers to the Administration CRUD runtime.
+- Add `FroshJetpack.Admin.Cms` for validated, immutable CMS element definitions rendered through one
+  shared Administration canvas, settings form, and picker preview.
+- Project declarative scalar and entity-select fields onto Shopware's native CMS inheritance,
+  Criteria collection, enrichment, and immediate Administration preview behavior.
 - Add `#[AsScheduledTask(interval: ...)]` for one-class, constructor-injected scheduled tasks with a
   regular Shopware `Context` argument.
 - Generate deterministic internal Shopware task messages, reloadable runtime metadata, and handler

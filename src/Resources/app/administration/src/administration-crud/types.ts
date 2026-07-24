@@ -1,3 +1,5 @@
+import type { CmsElementApi } from '../cms-element/types';
+
 export type CrudEntity = Record<string, unknown> & { id: string };
 
 export type CrudProperty<TEntity extends CrudEntity> =
@@ -351,5 +353,6 @@ export interface FroshJetpackGlobal {
     readonly runtimeVersion: string;
     readonly Admin: {
         readonly Crud: CrudApi;
+        readonly Cms: CmsElementApi;
     };
 }

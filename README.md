@@ -14,8 +14,8 @@ routing, plugin lifecycle, and Administration runtime underneath.
   templates.
 - **Automate:** one-class scheduled tasks and concise Storefront, Store API, and Admin API route
   attributes.
-- **Build UI:** 42 stable Vue 3 Administration components and a declarative DAL CRUD runtime with
-  translations, ACL, actions, and cross-plugin extensions.
+- **Build UI:** 42 stable Vue 3 Administration components, declarative DAL CRUD, and CMS element
+  registration with shared canvas, settings, and picker components.
 - **Ship safely:** dry-run scaffolding, database-independent entity snapshots, reversible migrations,
   merchant-edit preservation, and one aggregated validation command.
 
@@ -52,7 +52,8 @@ queue, task registry, statuses, retries, lifecycle, and merchant interval overri
 | Backend declarations | [Configuration](docs/configuration/README.md) · [Entities](docs/entities/README.md) · [Migrations](docs/migrations/README.md) |
 | Lifecycle resources | [Custom fields](docs/custom-fields/README.md) · [Mail templates](docs/mail-templates/README.md) |
 | Runtime shortcuts | [Scheduled tasks](docs/scheduled-tasks/README.md) · [Routing](docs/routing/README.md) |
-| Administration | [Components](docs/administration-components/README.md) · [Declarative CRUD](docs/administration-crud/README.md) |
+| Administration | [Components](docs/administration-components/README.md) · [Declarative CRUD](docs/administration-crud/README.md) · [Declarative CMS elements](docs/administration-cms-elements/README.md) |
+| Tutorials | [Build a Recipe feature](docs/tutorials/recipe.md) |
 | Developer workflow | [Scaffolding](docs/scaffolding/README.md) · [Validation](docs/validation/README.md) · [Commands](docs/commands.md) |
 
 ## Documentation development

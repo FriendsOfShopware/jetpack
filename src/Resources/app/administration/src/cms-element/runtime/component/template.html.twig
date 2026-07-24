@@ -1,0 +1,16 @@
+{% block frosh_jetpack_cms_element %}
+<jetpack-card
+    compact
+    :title="$t(definition.labelSnippet)"
+>
+    <jetpack-stack gap="small">
+        <div
+            v-for="field in definition.fields"
+            :key="field.name"
+        >
+            <strong>{{ $t(field.labelSnippet) }}</strong>
+            <div>{{ displayValue(field) }}</div>
+        </div>
+    </jetpack-stack>
+</jetpack-card>
+{% endblock %}

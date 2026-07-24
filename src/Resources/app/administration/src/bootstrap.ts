@@ -3,6 +3,7 @@ import './component/jetpack-ui';
 import './component/frosh-jetpack-field';
 import './module/frosh-jetpack-configuration';
 import './administration-crud/runtime';
+import './cms-element/runtime';
 import './administration-crud/listing/listing.scss';
 import './administration-crud/detail/detail.scss';
 import { installFroshJetpackGlobal } from './administration-crud/install-global';

@@ -1,10 +1,10 @@
-const { defineComponent } = require("vue");
+const { defineComponent } = require('vue');
 
 class Criteria {
     constructor(page = 1, limit = 25) {
         this.page = page;
         this.limit = limit;
-        this.term = "";
+        this.term = '';
         this.associations = [];
         this.sortings = [];
     }
@@ -18,7 +18,7 @@ class Criteria {
         return clone;
     }
 
-    static sort(property, direction = "ASC", naturalSorting = false) {
+    static sort(property, direction = 'ASC', naturalSorting = false) {
         return { field: property, order: direction, naturalSorting };
     }
 
@@ -73,9 +73,7 @@ const privileges = {
 
 global.Shopware = {
     Component: {
-        register: jest.fn((_name, config) =>
-            typeof config === "object" ? defineComponent(config) : config,
-        ),
+        register: jest.fn((_name, config) => (typeof config === 'object' ? defineComponent(config) : config)),
         wrapComponentConfig: defineComponent,
     },
     Context: {
@@ -90,6 +88,24 @@ global.Shopware = {
     },
     Module: {
         register: jest.fn(),
+    },
+    Mixin: {
+        getByName: jest.fn(() => ({
+            props: {
+                element: {
+                    type: Object,
+                    required: true,
+                },
+                disabled: {
+                    type: Boolean,
+                    default: false,
+                },
+            },
+            methods: {
+                initElementConfig() {},
+                initElementData() {},
+            },
+        })),
     },
     Service: jest.fn(() => privileges),
 };

@@ -1,0 +1,2 @@
+const t=`{% block frosh_jetpack_cms_element_preview %} <jetpack-card compact :title="$t(definition.labelSnippet)" :subtitle="$t('frosh-jetpack-cms.preview.subtitle')" /> {% endblock %}`,n=Shopware.Component.wrapComponentConfig({template:t,props:{elementData:{type:Object,required:!0}},computed:{definition(){const e=globalThis.FroshJetpack.Admin.Cms.get(this.elementData.name);if(!e)throw new Error(`[FroshJetpack Admin CMS] ${this.elementData.name}: registration was not found`);return e}}});export{n as default};
+//# sourceMappingURL=index-l5S_osxi.js.map

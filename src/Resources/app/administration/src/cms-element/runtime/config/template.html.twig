@@ -1,0 +1,20 @@
+{% block frosh_jetpack_cms_element_config %}
+<jetpack-stack>
+    <sw-cms-inherit-wrapper
+        v-for="field in definition.fields"
+        :key="field.name"
+        :field="field.name"
+        :element="element"
+        :label="$t(field.labelSnippet)"
+    >
+        <template #default="{ isInherited }">
+            <component
+                :is="componentFor(field)"
+                :model-value="runtimeElement.config[field.name].value"
+                v-bind="fieldProps(field, isInherited)"
+                @update:model-value="updateField(field, $event)"
+            />
+        </template>
+    </sw-cms-inherit-wrapper>
+</jetpack-stack>
+{% endblock %}

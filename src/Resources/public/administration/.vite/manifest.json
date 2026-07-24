@@ -3,8 +3,8 @@
     "file": "assets/bootstrap-BDrvWLLS.css",
     "src": "_bootstrap-BDrvWLLS.css"
   },
-  "_bootstrap-Dty1ZK0f.js": {
-    "file": "assets/bootstrap-Dty1ZK0f.js",
+  "_bootstrap-ChVBlGRo.js": {
+    "file": "assets/bootstrap-ChVBlGRo.js",
     "name": "bootstrap",
     "isDynamicEntry": true,
     "imports": [
@@ -40,7 +40,10 @@
       "component/jetpack-ui/media/media-preview.ts",
       "component/jetpack-ui/media/media-upload.ts",
       "administration-crud/listing/index.ts",
-      "administration-crud/detail/index.ts"
+      "administration-crud/detail/index.ts",
+      "cms-element/runtime/component/index.ts",
+      "cms-element/runtime/config/index.ts",
+      "cms-element/runtime/preview/index.ts"
     ],
     "css": [
       "assets/bootstrap-BDrvWLLS.css"
@@ -51,26 +54,44 @@
     "name": "host"
   },
   "administration-crud/detail/index.ts": {
-    "file": "assets/index-mAy-Pn3T.js",
+    "file": "assets/index-Cms6USF8.js",
     "name": "index",
     "src": "administration-crud/detail/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "_host-BIc3mTOD.js",
       "main.ts"
     ]
   },
   "administration-crud/listing/index.ts": {
-    "file": "assets/index-CpNt4rBy.js",
+    "file": "assets/index-BdEZulOt.js",
     "name": "index",
     "src": "administration-crud/listing/index.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "_host-BIc3mTOD.js",
       "main.ts"
     ]
+  },
+  "cms-element/runtime/component/index.ts": {
+    "file": "assets/index-14IZT5Ks.js",
+    "name": "index",
+    "src": "cms-element/runtime/component/index.ts",
+    "isDynamicEntry": true
+  },
+  "cms-element/runtime/config/index.ts": {
+    "file": "assets/index-IOxmOFlv.js",
+    "name": "index",
+    "src": "cms-element/runtime/config/index.ts",
+    "isDynamicEntry": true
+  },
+  "cms-element/runtime/preview/index.ts": {
+    "file": "assets/index-l5S_osxi.js",
+    "name": "index",
+    "src": "cms-element/runtime/preview/index.ts",
+    "isDynamicEntry": true
   },
   "component/jetpack-ui/data/chart.ts": {
     "file": "assets/chart-yaPqEmVB.js",
@@ -79,12 +100,12 @@
     "isDynamicEntry": true
   },
   "component/jetpack-ui/data/data-table.ts": {
-    "file": "assets/data-table-CFqEZm6m.js",
+    "file": "assets/data-table-l5sqawNB.js",
     "name": "data-table",
     "src": "component/jetpack-ui/data/data-table.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
@@ -119,12 +140,12 @@
     "isDynamicEntry": true
   },
   "component/jetpack-ui/feedback/progress.ts": {
-    "file": "assets/progress-BIP3gDDe.js",
+    "file": "assets/progress-hxUCz5C7.js",
     "name": "progress",
     "src": "component/jetpack-ui/feedback/progress.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
@@ -135,12 +156,12 @@
     "isDynamicEntry": true
   },
   "component/jetpack-ui/form/entity-multi-select.ts": {
-    "file": "assets/entity-multi-select-CjvAYmYl.js",
+    "file": "assets/entity-multi-select-CrpqO_ym.js",
     "name": "entity-multi-select",
     "src": "component/jetpack-ui/form/entity-multi-select.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
@@ -175,12 +196,12 @@
     "isDynamicEntry": true
   },
   "component/jetpack-ui/foundation/icon.ts": {
-    "file": "assets/icon-CI0mjQRM.js",
+    "file": "assets/icon-BgnxZtSN.js",
     "name": "icon",
     "src": "component/jetpack-ui/foundation/icon.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
@@ -197,12 +218,12 @@
     "isDynamicEntry": true
   },
   "component/jetpack-ui/internal/field-shell.ts": {
-    "file": "assets/field-shell-BzLyNjQw.js",
+    "file": "assets/field-shell-C1Fcx7Lt.js",
     "name": "field-shell",
     "src": "component/jetpack-ui/internal/field-shell.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
@@ -237,22 +258,22 @@
     "isDynamicEntry": true
   },
   "component/jetpack-ui/navigation/tabs.ts": {
-    "file": "assets/tabs-CoP21WK8.js",
+    "file": "assets/tabs-Bb6NLFK5.js",
     "name": "tabs",
     "src": "component/jetpack-ui/navigation/tabs.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
   "component/jetpack-ui/overlay/modal.ts": {
-    "file": "assets/modal-B4a3NDuU.js",
+    "file": "assets/modal-DtWdO5Cc.js",
     "name": "modal",
     "src": "component/jetpack-ui/overlay/modal.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
@@ -263,22 +284,22 @@
     "isDynamicEntry": true
   },
   "component/jetpack-ui/overlay/tooltip.ts": {
-    "file": "assets/tooltip-S9gs-h-a.js",
+    "file": "assets/tooltip-BcbrieNx.js",
     "name": "tooltip",
     "src": "component/jetpack-ui/overlay/tooltip.ts",
     "isDynamicEntry": true,
     "imports": [
-      "_bootstrap-Dty1ZK0f.js",
+      "_bootstrap-ChVBlGRo.js",
       "main.ts"
     ]
   },
   "main.ts": {
-    "file": "assets/frosh-jetpack-weg-dpvU.js",
+    "file": "assets/frosh-jetpack-CsCAoKFo.js",
     "name": "frosh-jetpack",
     "src": "main.ts",
     "isEntry": true,
     "dynamicImports": [
-      "_bootstrap-Dty1ZK0f.js"
+      "_bootstrap-ChVBlGRo.js"
     ]
   }
 }

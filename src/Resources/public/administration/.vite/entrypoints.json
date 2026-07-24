@@ -4,10 +4,10 @@
     "frosh-jetpack": {
       "css": [],
       "dynamic": [
-        "/bundles/froshjetpack/administration/assets/bootstrap-Dty1ZK0f.js"
+        "/bundles/froshjetpack/administration/assets/bootstrap-ChVBlGRo.js"
       ],
       "js": [
-        "/bundles/froshjetpack/administration/assets/frosh-jetpack-weg-dpvU.js"
+        "/bundles/froshjetpack/administration/assets/frosh-jetpack-CsCAoKFo.js"
       ],
       "legacy": false,
       "preload": []

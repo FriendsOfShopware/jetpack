@@ -48,6 +48,11 @@ describe('CRUD listing', () => {
             apiVersion: 1,
             runtimeVersion: 'test',
             Admin: {
+                Cms: {
+                    register: jest.fn(),
+                    get: () => undefined,
+                    all: () => [],
+                },
                 Crud: {
                     register: jest.fn(),
                     extend: jest.fn(),
@@ -140,6 +145,11 @@ describe('CRUD listing', () => {
             apiVersion: 1,
             runtimeVersion: 'test',
             Admin: {
+                Cms: {
+                    register: jest.fn(),
+                    get: () => undefined,
+                    all: () => [],
+                },
                 Crud: {
                     register: jest.fn(),
                     extend: jest.fn(),

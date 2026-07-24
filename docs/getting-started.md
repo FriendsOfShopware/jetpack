@@ -134,5 +134,9 @@ merchant-configured interval.
   [mail templates](mail-templates/README.md) as YAML plus version-controlled content.
 - Need an Administration screen? Choose the stable [component catalog](administration-components/README.md)
   or a complete [declarative CRUD module](administration-crud/README.md).
+- Building Shopping Experiences content? Register a
+  [declarative CMS element](administration-cms-elements/README.md).
+- Want to see the pieces together? Build the [Recipe feature](tutorials/recipe.md) from entity to
+  Storefront output.
 - Adding more declarations? Keep `frosh:jetpack:validate <bundle>` in CI and add
   `frosh:jetpack:entity:check <bundle>` when the plugin owns Jetpack entities.

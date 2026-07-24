@@ -66,6 +66,7 @@ interface FroshJetpackGlobal {
             get(id: string): Readonly<ResolvedCrudDefinition> | undefined;
             all(): readonly Readonly<ResolvedCrudDefinition>[];
         };
+        readonly Cms: CmsElementApi;
     };
 }
 ```
@@ -74,6 +75,9 @@ Definitions and extensions may be registered in either order. `get()` and `all()
 immutable resolved views. Internal adapters such as state access, component registration, Criteria
 construction, and property-error mapping are not exposed, so they can change between Shopware 6.6
 and 6.7 without changing consumer code.
+
+`Admin.Cms` shares the same early runtime but has its own focused contract. See
+[declarative CMS elements](../administration-cms-elements/README.md).
 
 ### Guaranteed early bootstrap
 

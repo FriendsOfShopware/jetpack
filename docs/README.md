@@ -48,8 +48,8 @@ attributes without hiding paths, names, authentication, or other important behav
 
 ### :material-view-dashboard-edit: Build Administration UI
 
-Use a stable Vue 3 component catalog across Shopware 6.6 and 6.7, or register a complete DAL CRUD
-module with listings, forms, translations, ACL, actions, and cross-plugin extensions.
+Use a stable Vue 3 component catalog across Shopware 6.6 and 6.7, register a complete DAL CRUD
+module, or replace a CMS element's repeated Admin files with one field declaration.
 
 </div>
 <div class="jetpack-card" markdown>
@@ -105,6 +105,8 @@ contract recognizable.
 | declare the right route scope | [Routing](routing/README.md) | repetitive `_routeScope` defaults and imports |
 | use stable Administration controls | [Components](administration-components/README.md) | direct coupling to changing `sw-*` and `mt-*` controls |
 | create a DAL management module | [Administration CRUD](administration-crud/README.md) | repeated listing, form, ACL, action, and translation plumbing |
+| build a CMS element | [Administration CMS elements](administration-cms-elements/README.md) | separate Admin registration, canvas, config, and preview components |
+| see the whole workflow | [Recipe tutorial](tutorials/recipe.md) | guessing how entities, migrations, CRUD, and CMS fit together |
 | generate a safe starting point | [Scaffolding](scaffolding/README.md) | copy/paste without dry runs or conflict protection |
 | fail once with all declaration errors | [Validation](validation/README.md) | feature-by-feature validation loops |
 

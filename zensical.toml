@@ -35,6 +35,10 @@ nav = [
             { "Live component catalog" = "https://friendsofshopware.github.io/jetpack/storybook/" },
         ] },
         { "Declarative CRUD" = "administration-crud/README.md" },
+        { "Declarative CMS elements" = "administration-cms-elements/README.md" },
+    ] },
+    { "Tutorials" = [
+        { "Build a Recipe feature" = "tutorials/recipe.md" },
     ] },
     { "Tooling" = [
         { "Scaffolding" = "scaffolding/README.md" },

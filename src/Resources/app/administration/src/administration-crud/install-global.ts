@@ -1,5 +1,7 @@
 import { registerCrudModule, registerCrudPrivileges } from './module/register-crud-module';
 import { CrudRegistry } from './registry/crud-registry';
+import { registerCmsElement } from '../cms-element/register-cms-element';
+import { CmsElementRegistry } from '../cms-element/registry/cms-element-registry';
 import type { FroshJetpackGlobal } from './types';
 
 const API_VERSION = 1 as const;
@@ -24,11 +26,13 @@ export function installFroshJetpackGlobal(): FroshJetpackGlobal {
     }
 
     const registry = new CrudRegistry(registerCrudModule, registerCrudPrivileges);
+    const cmsRegistry = new CmsElementRegistry(registerCmsElement);
     const runtime: FroshJetpackGlobal = Object.freeze({
         apiVersion: API_VERSION,
         runtimeVersion: RUNTIME_VERSION,
         Admin: Object.freeze({
             Crud: registry,
+            Cms: cmsRegistry,
         }),
     });
 

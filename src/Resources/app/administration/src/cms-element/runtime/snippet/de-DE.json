@@ -1,0 +1,12 @@
+{
+    "frosh-jetpack-cms": {
+        "preview": {
+            "subtitle": "Deklaratives CMS-Element"
+        },
+        "values": {
+            "notConfigured": "Nicht konfiguriert",
+            "yes": "Ja",
+            "no": "Nein"
+        }
+    }
+}
