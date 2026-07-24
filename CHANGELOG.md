@@ -51,8 +51,11 @@
 - Add native `StorefrontRoute`, `StoreApiRoute`, and `AdminApiRoute` Symfony attributes that apply the
   corresponding Shopware scope on classes or methods across Shopware 6.6 and 6.7.
 - Add safe `frosh:jetpack:make:*` commands for entities, reversible migrations, attributed scheduled
-  tasks, and Symfony console commands, with dry runs, idempotent reruns, conflict detection, PHP syntax
-  validation, atomic writes, and rollback after partial write failures.
+  tasks, Symfony console commands, and entity-backed CMS elements, with dry runs, idempotent reruns,
+  conflict detection, PHP syntax validation, atomic writes, and rollback after partial write failures.
+- Add `frosh:jetpack:make:cms-element` to keep declarative Administration registration, snippets,
+  Shopware's DAL-backed CMS resolver, and the Storefront Twig filename aligned without modifying the
+  consumer's Administration entrypoint.
 
 ## 0.2.0
 

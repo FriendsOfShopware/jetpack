@@ -35,6 +35,42 @@ field is projected to Shopware's native CMS config, including its DAL criteria, 
 and layout inheritance behavior. The selected `acme_recipe` entity is therefore available as
 `element.data.recipe` in the Administration canvas.
 
+## Scaffold an entity-backed element
+
+The maker keeps the Administration name, resolver type, config field, and Twig filename aligned:
+
+```bash
+bin/console frosh:jetpack:make:cms-element \
+    AcmeRecipePlugin \
+    Recipe \
+    --entity=acme_recipe \
+    --label-property=title \
+    --dry-run
+```
+
+Repeat without `--dry-run` to create:
+
+```text
+Resources/app/administration/src/cms-element/acme-recipe/index.js
+Resources/app/administration/src/cms-element/acme-recipe/snippet/en-GB.json
+Cms/RecipeCmsElementResolver.php
+Resources/views/storefront/element/cms-element-acme-recipe.html.twig
+```
+
+The maker never modifies existing files. Activate the generated Administration registration by adding
+this side-effect import to the consumer's `main.js` or `main.ts`:
+
+```js
+import './cms-element/acme-recipe';
+```
+
+The generated resolver and Twig are explicit, consumer-owned starting points. Customize their
+criteria, data shape, and markup for the feature. The `--name`, `--field`, `--definition`, and
+`--label-property` options override inferred defaults; see the [scaffolding guide](../scaffolding/README.md#entity-backed-cms-element).
+Treat the technical element and field names as persisted identifiers after the element is in use.
+Administrators also need read permission for the selected DAL entity, and selector fields must be
+available through the Admin API.
+
 ## Public API
 
 `FroshJetpack.Admin.Cms` is installed before normal Administration plugin modules:

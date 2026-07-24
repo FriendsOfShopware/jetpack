@@ -67,6 +67,45 @@ bin/console frosh:jetpack:make:command AcmeReview RebuildIndex \
     --description='Rebuilds the review index'
 ```
 
+### Entity-backed CMS element
+
+```bash
+bin/console frosh:jetpack:make:cms-element \
+    AcmeRecipePlugin \
+    Recipe \
+    --entity=acme_recipe \
+    --label-property=title
+```
+
+This creates a standalone declarative Administration registration with its English snippet, a native
+Shopware CMS resolver, and a Storefront Twig starting point:
+
+```text
+Resources/app/administration/src/cms-element/acme-recipe/index.js
+Resources/app/administration/src/cms-element/acme-recipe/snippet/en-GB.json
+Cms/RecipeCmsElementResolver.php
+Resources/views/storefront/element/cms-element-acme-recipe.html.twig
+```
+
+The technical name defaults to the bundle's root namespace plus the element name, and the CMS config
+field defaults to the element name in lower camel case. Override the inferred contract when needed:
+
+```bash
+bin/console frosh:jetpack:make:cms-element \
+    AcmeRecipePlugin \
+    Recipe \
+    --entity=acme_recipe \
+    --name=acme-recipe \
+    --field=recipe \
+    --definition='Acme\RecipePlugin\Entity\Recipe\RecipeDefinition' \
+    --label-property=title
+```
+
+The maker deliberately does not edit the consumer's Administration entrypoint. Add
+`import './cms-element/acme-recipe';` to its `main.js` or `main.ts`, ensure the generated resolver is
+autoconfigured, then rebuild the Administration and compile the Storefront theme. The scaffold creates
+an element that can replace a block slot; it does not create a draggable CMS block.
+
 ## Dry runs and file safety
 
 Every maker supports `--dry-run`:
@@ -97,8 +136,13 @@ Generated PHP is a starting point and contains explicit implementation markers. 
 bin/console frosh:jetpack:validate AcmeReview
 ```
 
-Entity declarations additionally use the entity diff/generation workflow. Scheduled tasks and Symfony
-commands require the normal autowired and autoconfigured service resource in the consumer bundle.
+Entity declarations additionally use the entity diff/generation workflow. Scheduled tasks, Symfony
+commands, and CMS resolvers require the normal autowired and autoconfigured service resource in the
+consumer bundle.
+
+CMS element names and field names are persisted in Shopping Experiences content. Treat them as stable
+identifiers after editors start using the element. Generated files are consumer-owned starting points;
+add other Administration locales and customize Storefront markup in the consuming extension.
 
 The command names, arguments, options, generated Jetpack API usage, and safety semantics documented
 here are the supported developer contract. Scaffold plans, renderers, generators, and writers are

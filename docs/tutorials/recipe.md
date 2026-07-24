@@ -297,15 +297,6 @@ Add `src/Resources/app/administration/src/snippet/en-GB.json`:
       "actions": {
         "save": "Save"
       }
-    },
-    "cms": {
-      "label": "Recipe",
-      "fields": {
-        "recipe": "Recipe"
-      },
-      "placeholders": {
-        "recipe": "Select a recipe"
-      }
     }
   },
   "sw-privileges": {
@@ -320,7 +311,34 @@ Add `src/Resources/app/administration/src/snippet/en-GB.json`:
 
 ## 4. Register the CMS element
 
-Append a second declaration to the same `main.js`:
+Preview the complete cross-layer scaffold:
+
+```bash
+bin/console frosh:jetpack:make:cms-element \
+    AcmeRecipePlugin \
+    Recipe \
+    --entity=acme_recipe \
+    --label-property=title \
+    --dry-run
+```
+
+Repeat without `--dry-run` to create:
+
+```text
+src/Resources/app/administration/src/cms-element/acme-recipe/index.js
+src/Resources/app/administration/src/cms-element/acme-recipe/snippet/en-GB.json
+src/Cms/RecipeCmsElementResolver.php
+src/Resources/views/storefront/element/cms-element-acme-recipe.html.twig
+```
+
+The maker refuses to overwrite existing files and never edits the Administration entrypoint. Add its
+one required import near the top of `main.js`:
+
+```js
+import './cms-element/acme-recipe';
+```
+
+The generated module registers the CMS definition and its own English snippets:
 
 ```js
 FroshJetpack.Admin.Cms.register({
@@ -356,7 +374,7 @@ The names must match across all three runtime layers:
 ## 5. Resolve the recipe in the Storefront
 
 The Storefront still uses a normal Shopware CMS resolver so its context and data loading stay
-explicit. Add `src/Cms/RecipeCmsElementResolver.php`:
+explicit. Review the generated `src/Cms/RecipeCmsElementResolver.php`:
 
 ```php
 <?php declare(strict_types=1);
@@ -364,7 +382,6 @@ explicit. Add `src/Cms/RecipeCmsElementResolver.php`:
 namespace Acme\RecipePlugin\Cms;
 
 use Acme\RecipePlugin\Entity\Recipe\RecipeDefinition;
-use Acme\RecipePlugin\Entity\Recipe\RecipeEntity;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -407,7 +424,7 @@ final class RecipeCmsElementResolver extends AbstractCmsElementResolver
         ResolverContext $resolverContext,
         ElementDataCollection $result,
     ): void {
-        $data = new ArrayStruct(['recipe' => null]);
+        $data = new ArrayStruct([self::CONFIG_KEY => null]);
         $slot->setData($data);
 
         $config = $slot->getFieldConfig()->get(self::CONFIG_KEY);
@@ -415,13 +432,13 @@ final class RecipeCmsElementResolver extends AbstractCmsElementResolver
             return;
         }
 
-        $recipe = $result
+        $entity = $result
             ->get($this->resultKey($slot))
             ?->getEntities()
             ->get($config->getStringValue());
 
-        if ($recipe instanceof RecipeEntity) {
-            $data->set('recipe', $recipe);
+        if ($entity !== null) {
+            $data->set(self::CONFIG_KEY, $entity);
         }
     }
 
@@ -437,7 +454,7 @@ needed.
 
 ## 6. Render the Storefront element
 
-Create
+Customize the generated starting point at
 `src/Resources/views/storefront/element/cms-element-acme-recipe.html.twig`:
 
 ```twig

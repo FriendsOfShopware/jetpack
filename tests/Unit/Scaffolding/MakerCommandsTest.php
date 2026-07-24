@@ -4,12 +4,14 @@ namespace Frosh\Jetpack\Tests\Unit\Scaffolding;
 
 use Frosh\Jetpack\Attribute\AsScheduledTask;
 use Frosh\Jetpack\Command\AbstractMakeCommand;
+use Frosh\Jetpack\Command\MakeCmsElementCommand;
 use Frosh\Jetpack\Command\MakeConsoleCommand;
 use Frosh\Jetpack\Command\MakeEntityCommand;
 use Frosh\Jetpack\Command\MakeMigrationCommand;
 use Frosh\Jetpack\Command\MakeScheduledTaskCommand;
 use Frosh\Jetpack\Entity\BundleResolver;
 use Frosh\Jetpack\Migration\Migration;
+use Frosh\Jetpack\Scaffolding\Generator\CmsElementScaffolder;
 use Frosh\Jetpack\Scaffolding\Generator\CommandScaffolder;
 use Frosh\Jetpack\Scaffolding\Generator\EntityScaffolder;
 use Frosh\Jetpack\Scaffolding\Generator\MigrationScaffolder;
@@ -18,18 +20,25 @@ use Frosh\Jetpack\Scaffolding\ScaffoldWriter;
 use Frosh\Jetpack\Scaffolding\StubRenderer;
 use Frosh\Jetpack\ScheduledTask\ScheduledTaskDeclarationValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Clock\ClockInterface;
+use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
+use Twig\Source;
 
 #[CoversClass(AbstractMakeCommand::class)]
+#[CoversClass(MakeCmsElementCommand::class)]
 #[CoversClass(MakeConsoleCommand::class)]
 #[CoversClass(MakeEntityCommand::class)]
 #[CoversClass(MakeMigrationCommand::class)]
 #[CoversClass(MakeScheduledTaskCommand::class)]
+#[CoversClass(CmsElementScaffolder::class)]
 #[CoversClass(CommandScaffolder::class)]
 #[CoversClass(EntityScaffolder::class)]
 #[CoversClass(MigrationScaffolder::class)]
@@ -224,6 +233,210 @@ final class MakerCommandsTest extends TestCase
         static::assertSame('acme-review:rebuild', $attribute->name);
     }
 
+    public function testMakesEntityBackedCmsElementWithDerivedDefaults(): void
+    {
+        $tester = $this->cmsElementTester();
+
+        static::assertSame(0, $tester->execute([
+            'bundle' => $this->bundle->getName(),
+            'element' => 'Recipe',
+            '--entity' => 'acme_recipe',
+        ]));
+
+        $administration = $this->temporaryDirectory . '/Resources/app/administration/src/cms-element/acme-recipe/index.js';
+        $snippet = $this->temporaryDirectory . '/Resources/app/administration/src/cms-element/acme-recipe/snippet/en-GB.json';
+        $resolver = $this->temporaryDirectory . '/Cms/RecipeCmsElementResolver.php';
+        $template = $this->temporaryDirectory . '/Resources/views/storefront/element/cms-element-acme-recipe.html.twig';
+
+        static::assertFileExists($administration);
+        static::assertFileExists($snippet);
+        static::assertFileExists($resolver);
+        static::assertFileExists($template);
+
+        $administrationContent = (string) file_get_contents($administration);
+        static::assertStringContainsString("name: 'acme-recipe'", $administrationContent);
+        static::assertStringContainsString("entity: 'acme_recipe'", $administrationContent);
+        static::assertStringContainsString("labelProperty: 'name'", $administrationContent);
+
+        static::assertSame([
+            'acme-recipe' => [
+                'cms' => [
+                    'label' => 'Recipe',
+                    'fields' => ['recipe' => 'Recipe'],
+                    'placeholders' => ['recipe' => 'Select Recipe'],
+                ],
+            ],
+        ], json_decode((string) file_get_contents($snippet), true, 512, \JSON_THROW_ON_ERROR));
+
+        $resolverContent = (string) file_get_contents($resolver);
+        static::assertNotEmpty(\PhpToken::tokenize($resolverContent, \TOKEN_PARSE));
+        static::assertStringContainsString('use Acme\\Review\\Entity\\Recipe\\RecipeDefinition;', $resolverContent);
+        static::assertStringContainsString("return 'acme-recipe';", $resolverContent);
+        static::assertStringContainsString("private const CONFIG_KEY = 'recipe';", $resolverContent);
+
+        require_once $resolver;
+        $reflection = $this->generatedClass('Acme\\Review\\Cms\\RecipeCmsElementResolver');
+        $resolverInstance = $reflection->newInstance();
+        static::assertInstanceOf(AbstractCmsElementResolver::class, $resolverInstance);
+        static::assertSame('acme-recipe', $resolverInstance->getType());
+
+        $templateContent = (string) file_get_contents($template);
+        static::assertStringContainsString('{% set cmsEntity = element.data.get(\'recipe\') %}', $templateContent);
+        static::assertStringContainsString("{{ cmsEntity['name'] }}", $templateContent);
+        $twig = new Environment(new ArrayLoader());
+        $twig->parse($twig->tokenize(new Source(
+            $templateContent,
+            'cms-element-acme-recipe.html.twig',
+        )));
+        static::assertStringContainsString("import './cms-element/acme-recipe';", $tester->getDisplay());
+        static::assertStringContainsString('Resources/app/administration/src/main.js', $tester->getDisplay());
+
+        static::assertSame(0, $tester->execute([
+            'bundle' => $this->bundle->getName(),
+            'element' => 'Recipe',
+            '--entity' => 'acme_recipe',
+        ]));
+        static::assertStringContainsString('Unchanged', $tester->getDisplay());
+    }
+
+    public function testCmsElementPropagatesExplicitOptionsAcrossArtifacts(): void
+    {
+        $tester = $this->cmsElementTester();
+
+        static::assertSame(0, $tester->execute([
+            'bundle' => $this->bundle->getName(),
+            'element' => 'FeaturedRecipe',
+            '--entity' => 'vendor_recipe',
+            '--name' => 'vendor-featured-recipe',
+            '--field' => 'selectedRecipe',
+            '--definition' => 'Vendor\\Catalog\\Entity\\Recipe\\RecipeDefinition',
+            '--label-property' => 'displayName',
+        ]));
+
+        $administration = (string) file_get_contents(
+            $this->temporaryDirectory . '/Resources/app/administration/src/cms-element/vendor-featured-recipe/index.js',
+        );
+        $resolver = (string) file_get_contents($this->temporaryDirectory . '/Cms/FeaturedRecipeCmsElementResolver.php');
+        $template = (string) file_get_contents(
+            $this->temporaryDirectory . '/Resources/views/storefront/element/cms-element-vendor-featured-recipe.html.twig',
+        );
+        $snippet = json_decode(
+            (string) file_get_contents(
+                $this->temporaryDirectory . '/Resources/app/administration/src/cms-element/vendor-featured-recipe/snippet/en-GB.json',
+            ),
+            true,
+            512,
+            \JSON_THROW_ON_ERROR,
+        );
+
+        static::assertStringContainsString("name: 'vendor-featured-recipe'", $administration);
+        static::assertStringContainsString("name: 'selectedRecipe'", $administration);
+        static::assertStringContainsString("entity: 'vendor_recipe'", $administration);
+        static::assertStringContainsString("labelProperty: 'displayName'", $administration);
+        static::assertStringContainsString('use Vendor\\Catalog\\Entity\\Recipe\\RecipeDefinition;', $resolver);
+        static::assertStringContainsString("private const CONFIG_KEY = 'selectedRecipe';", $resolver);
+        static::assertStringContainsString("return 'vendor-featured-recipe';", $resolver);
+        static::assertStringContainsString("{% set cmsEntity = element.data.get('selectedRecipe') %}", $template);
+        static::assertStringContainsString("{{ cmsEntity['displayName'] }}", $template);
+        static::assertSame('Featured recipe', $snippet['vendor-featured-recipe']['cms']['label']);
+        static::assertSame(
+            'Featured recipe',
+            $snippet['vendor-featured-recipe']['cms']['fields']['selectedRecipe'],
+        );
+    }
+
+    public function testCmsElementDryRunDoesNotCreateFiles(): void
+    {
+        $tester = $this->cmsElementTester();
+
+        static::assertSame(0, $tester->execute([
+            'bundle' => $this->bundle->getName(),
+            'element' => 'Recipe',
+            '--entity' => 'acme_recipe',
+            '--dry-run' => true,
+        ]));
+
+        static::assertDirectoryDoesNotExist($this->temporaryDirectory . '/Cms');
+        static::assertDirectoryDoesNotExist($this->temporaryDirectory . '/Resources');
+        static::assertStringContainsString('Would create', $tester->getDisplay());
+        static::assertStringContainsString('cms-element-acme-recipe.html.twig', $tester->getDisplay());
+    }
+
+    public function testCmsElementRequiresEntityOption(): void
+    {
+        $tester = $this->cmsElementTester();
+
+        $this->expectExceptionObject(new \InvalidArgumentException('The --entity option is required.'));
+
+        $tester->execute([
+            'bundle' => $this->bundle->getName(),
+            'element' => 'Recipe',
+        ]);
+    }
+
+    /**
+     * @param array<string, string> $options
+     */
+    #[DataProvider('invalidCmsElementOptions')]
+    public function testCmsElementRejectsInvalidOptions(array $options, string $message): void
+    {
+        $tester = $this->cmsElementTester();
+
+        $this->expectExceptionObject(new \InvalidArgumentException($message));
+
+        $tester->execute(array_merge([
+            'bundle' => $this->bundle->getName(),
+            'element' => 'Recipe',
+            '--entity' => 'acme_recipe',
+        ], $options));
+    }
+
+    /**
+     * @return \Generator<string, array{array<string, string>, string}>
+     */
+    public static function invalidCmsElementOptions(): \Generator
+    {
+        yield 'DAL entity must use lower snake case' => [
+            ['--entity' => 'AcmeRecipe'],
+            'The entity name must be lower snake_case.',
+        ];
+
+        yield 'technical name must remain namespaced' => [
+            ['--name' => 'recipe'],
+            'The CMS element name must contain at least two lower-kebab-case segments.',
+        ];
+
+        yield 'field must be a safe JavaScript key' => [
+            ['--field' => '__proto__'],
+            'The CMS field must be a safe lowerCamelCase identifier.',
+        ];
+
+        yield 'definition must be fully qualified' => [
+            ['--definition' => 'RecipeDefinition'],
+            'The entity definition must be a fully-qualified PascalCase class name.',
+        ];
+
+        yield 'label property must be a direct key' => [
+            ['--label-property' => 'translated.name'],
+            'The label property must be a safe lowerCamelCase identifier.',
+        ];
+    }
+
+    public function testCmsElementNormalizesAcronymsInDerivedNames(): void
+    {
+        $tester = $this->cmsElementTester();
+
+        static::assertSame(0, $tester->execute([
+            'bundle' => $this->bundle->getName(),
+            'element' => 'URLRecipe',
+            '--entity' => 'acme_recipe',
+        ]));
+
+        $path = $this->temporaryDirectory . '/Resources/app/administration/src/cms-element/acme-url-recipe/index.js';
+        static::assertFileExists($path);
+        static::assertStringContainsString("name: 'urlRecipe'", (string) file_get_contents($path));
+    }
+
     public function testSymfonyCommandMakerDerivesNameAndDescription(): void
     {
         $tester = new CommandTester(new MakeConsoleCommand(
@@ -257,6 +470,15 @@ final class MakerCommandsTest extends TestCase
             'task' => 'CleanupExpiredReviews',
             '--interval' => '0',
         ]);
+    }
+
+    private function cmsElementTester(): CommandTester
+    {
+        return new CommandTester(new MakeCmsElementCommand(
+            $this->bundleResolver,
+            $this->writer,
+            new CmsElementScaffolder($this->renderer),
+        ));
     }
 
     /**

@@ -9,6 +9,7 @@ use Frosh\Jetpack\Command\BaselineEntitySchemaCommand;
 use Frosh\Jetpack\Command\CheckEntitySchemaCommand;
 use Frosh\Jetpack\Command\DiffEntitySchemaCommand;
 use Frosh\Jetpack\Command\GenerateEntityMigrationCommand;
+use Frosh\Jetpack\Command\MakeCmsElementCommand;
 use Frosh\Jetpack\Command\MakeConsoleCommand;
 use Frosh\Jetpack\Command\MakeEntityCommand;
 use Frosh\Jetpack\Command\MakeMigrationCommand;
@@ -68,6 +69,7 @@ final class ServiceConfigurationTest extends TestCase
             CheckEntitySchemaCommand::class,
             DiffEntitySchemaCommand::class,
             GenerateEntityMigrationCommand::class,
+            MakeCmsElementCommand::class,
             MakeConsoleCommand::class,
             MakeEntityCommand::class,
             MakeMigrationCommand::class,

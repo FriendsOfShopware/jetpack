@@ -205,6 +205,10 @@ services:
         arguments:
             - '@Frosh\Jetpack\Scaffolding\StubRenderer'
 
+    Frosh\Jetpack\Scaffolding\Generator\CmsElementScaffolder:
+        arguments:
+            - '@Frosh\Jetpack\Scaffolding\StubRenderer'
+
     Frosh\Jetpack\Entity\BundleResolver:
         arguments:
             - '@kernel'
@@ -328,5 +332,13 @@ services:
             - '@Frosh\Jetpack\Entity\BundleResolver'
             - '@Frosh\Jetpack\Scaffolding\ScaffoldWriter'
             - '@Frosh\Jetpack\Scaffolding\Generator\CommandScaffolder'
+        tags:
+            - { name: console.command }
+
+    Frosh\Jetpack\Command\MakeCmsElementCommand:
+        arguments:
+            - '@Frosh\Jetpack\Entity\BundleResolver'
+            - '@Frosh\Jetpack\Scaffolding\ScaffoldWriter'
+            - '@Frosh\Jetpack\Scaffolding\Generator\CmsElementScaffolder'
         tags:
             - { name: console.command }

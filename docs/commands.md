@@ -51,16 +51,22 @@ follow the [entity snapshot workflow](entities/README.md#snapshot-workflow).
 | `frosh:jetpack:make:migration <bundle> <Migration>` | Empty reversible migration | `--dry-run` |
 | `frosh:jetpack:make:scheduled-task <bundle> <Task>` | One attributed scheduled-task service | `--interval=<seconds>`, `--name=<name>`, `--reschedule-on-failure`, `--dry-run` |
 | `frosh:jetpack:make:command <bundle> <Command>` | Autoconfigured Symfony command | `--name=<name>`, `--description=<text>`, `--dry-run` |
+| `frosh:jetpack:make:cms-element <bundle> <Element> --entity=<dal_name>` | Declarative Admin registration and snippet, DAL-backed resolver, and Storefront Twig | `--name=<name>`, `--field=<key>`, `--definition=<class>`, `--label-property=<property>`, `--dry-run` |
 
 Every maker preflights the complete plan, parses generated PHP, treats byte-identical files as
 unchanged, refuses to overwrite different content, and avoids leaving a partial scaffold. There is no
 force option. See [scaffolding safety](scaffolding/README.md#dry-runs-and-file-safety).
+
+The CMS element maker creates a standalone Administration module without changing an existing
+entrypoint. Import the generated `./cms-element/<name>` module from the consumer's `main.js` or
+`main.ts`.
 
 Discover the live signatures in your installed version:
 
 ```bash
 bin/console list frosh:jetpack
 bin/console help frosh:jetpack:make:scheduled-task
+bin/console help frosh:jetpack:make:cms-element
 ```
 
 ## Related Shopware commands
