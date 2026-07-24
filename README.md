@@ -20,7 +20,8 @@ routing, plugin lifecycle, and Administration runtime underneath.
   merchant-edit preservation, and one aggregated validation command.
 
 For the outcome-first tour, installation path, and complete guides, open the
-[Frosh Jetpack documentation](docs/README.md).
+[Frosh Jetpack documentation](docs/README.md). The [project vision](docs/vision.md) explains the
+principles behind the toolkit and how we decide which problems Jetpack should solve.
 
 ## A one-class scheduled task
 

@@ -13,6 +13,7 @@ extra_css = ["stylesheets/extra.css"]
 nav = [
     { "Home" = "README.md" },
     { "Start here" = [
+        { "Vision" = "vision.md" },
         { "Getting started" = "getting-started.md" },
         { "Compatibility" = "compatibility.md" },
         { "Command reference" = "commands.md" },
