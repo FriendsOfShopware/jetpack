@@ -16,7 +16,7 @@
         "doctrine/dbal": "^3.9 || ^4.0",
         "opis/json-schema": "^2.4",
         "psr/clock": "^1.0",
-        "shopware/core": ">=6.6 <6.8",
+        "shopware/core": ">=6.6.0.3 <6.8",
         "symfony/yaml": "^6.4 || ^7.0",
         "twig/twig": "^3.8"
     },
